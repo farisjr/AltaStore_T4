@@ -1,8 +1,12 @@
 package models
 
-import "gorm.io/gorm"
+import "time"
 
 type CartDetails struct {
-	gorm.Model
-	Subtotal string `json:"subtotal" form:"subtotal"`
+	ProductsID int `gorm:"primaryKey" json:"products_id" form:"products_id"`
+	CartsID    int `gorm:"primaryKey" json:"carts_id" form:"carts_id"`
+	Quantity   int `json:"quantity" form:"quantity"`
+	Price      int `json:"price" form:"price"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
