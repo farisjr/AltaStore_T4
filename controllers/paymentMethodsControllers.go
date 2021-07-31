@@ -9,8 +9,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-
-func GetAllController(c echo.Context) error {
+func GetAllPaymentMethodsController(c echo.Context) error {
 	paymentMethods, err := database.GetPaymentMethods()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -21,7 +20,7 @@ func GetAllController(c echo.Context) error {
 	})
 }
 
-func GetOneController(c echo.Context) error {
+func GetOnePaymentMethodsController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -38,7 +37,7 @@ func GetOneController(c echo.Context) error {
 	})
 }
 
-func CreateController(c echo.Context) error {
+func CreatePaymentMethodsController(c echo.Context) error {
 	// binding data
 	paymentMethod := models.PaymentMethods{}
 	c.Bind(&paymentMethod)
@@ -53,7 +52,7 @@ func CreateController(c echo.Context) error {
 	})
 }
 
-func DeleteController(c echo.Context) error {
+func DeletePaymentMethodsController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -72,7 +71,7 @@ func DeleteController(c echo.Context) error {
 
 }
 
-func UpdateController(c echo.Context) error {
+func UpdatePaymentMethodsController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
