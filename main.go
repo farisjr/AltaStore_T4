@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	config "project/configs"
+	"project/config"
 	"project/routes"
 
 	"github.com/labstack/echo"
