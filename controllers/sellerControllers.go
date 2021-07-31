@@ -37,7 +37,7 @@ func GetOneSellersController(c echo.Context) error {
 	})
 }
 
-func CreateSellerssController(c echo.Context) error {
+func CreateSellersController(c echo.Context) error {
 	// binding data
 	seller := models.Sellers{}
 	c.Bind(&seller)
