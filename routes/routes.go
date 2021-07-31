@@ -9,6 +9,12 @@ import (
 )
 
 func New(e *echo.Echo) {
+	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
+	e.GET("/paymentMethods/:id", controllers.GetOnePaymentMethodsController)
+	e.POST("/paymentMethods", controllers.CreatePaymentMethodsController)
+	e.PUT("/paymentMethods/:id", controllers.UpdatePaymentMethodsController)
+	e.DELETE("/paymentMethods/:id", controllers.DeletePaymentMethodsController)
+
 	e.POST("/customers", controllers.CreateCustomersController)
 	e.GET("/customers/:id", controllers.GetCustomersidController)
 	e.POST("/login", controllers.LoginCustomersControllers)
