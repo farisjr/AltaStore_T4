@@ -16,7 +16,7 @@ func GetAllPaymentMethodsController(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "success get all payment method",
-		"users":  paymentMethods,
+		"data":   paymentMethods,
 	})
 }
 
@@ -33,7 +33,7 @@ func GetOnePaymentMethodsController(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success get payment method data",
-		"user":    paymentMethods,
+		"data":    paymentMethods,
 	})
 }
 
@@ -48,7 +48,7 @@ func CreatePaymentMethodsController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success create payment methods",
-		"user":     paymentMethods,
+		"data":     paymentMethods,
 	})
 }
 
@@ -66,7 +66,7 @@ func DeletePaymentMethodsController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success delete payment method",
-		"user":    paymentMethods,
+		"data":    paymentMethods,
 	})
 
 }
