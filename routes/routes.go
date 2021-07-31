@@ -21,6 +21,10 @@ func New(e *echo.Echo) {
 	//e.DELETE("/users/:id", controllers.DeleteUserController)
 	//e.PUT("/users/:id", controllers.UpdateUserController)
 
+	//carts
+	e.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
+	// e.POST("api/carts", controllers.CreateCartController)
+
 	r := e.Group("/jwt")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
