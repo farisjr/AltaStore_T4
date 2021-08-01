@@ -20,7 +20,7 @@
 - [Mohammad Ryan Priatama](https://github.com/ryanpriatama)
 - [Riska Kurnia Dewi](https://github.com/riskakrndw)
 
-## Description Project
+## About
 
 description here
 
