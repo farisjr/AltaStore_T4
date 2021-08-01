@@ -5,6 +5,7 @@ import (
 	"project/models"
 )
 
+// add new cart
 func CreateCart(cart models.Carts) (interface{}, error) {
 	if err := config.DB.Save(&cart).Error; err != nil {
 		return nil, err
@@ -12,6 +13,16 @@ func CreateCart(cart models.Carts) (interface{}, error) {
 	return cart, nil
 }
 
+// get cart by id
+func GetCart(cartId int) (models.Carts, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", cartId).Error; err != nil {
+		return cart, err
+	}
+	return cart, nil
+}
+
+// get total price
 func GetTotalPrice(cartId int) (int, error) {
 	var cartDetails models.CartDetails
 	var totalPrice int
@@ -21,6 +32,7 @@ func GetTotalPrice(cartId int) (int, error) {
 	return totalPrice, nil
 }
 
+//get total quantity
 func GetTotalQty(cartId int) (int, error) {
 	var cartDetails models.CartDetails
 	var totalQty int
@@ -30,6 +42,7 @@ func GetTotalQty(cartId int) (int, error) {
 	return totalQty, nil
 }
 
+//update total cart
 func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{}, error) {
 	var cart models.Carts
 	if err := config.DB.Model(&cart).Where("id=?", cartId).Updates(models.Carts{TotalPrice: newTotalPrice, TotalQuantity: newTotalQty}).Error; err != nil {
@@ -38,6 +51,7 @@ func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{
 	return cart, nil
 }
 
+//check is cart id exist on table cart
 func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
 	if err := config.DB.Where("id=?", cartId).First(&cart).Error; err != nil {
 		return nil, err
@@ -45,19 +59,11 @@ func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
 	return cart.ID, nil
 }
 
+// get cart by id
 func GetCartById(id int) (interface{}, error) {
 	var cart models.Carts
 	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
 		return nil, err
 	}
 	return cart, nil
-}
-
-func GetListProductCart(cartId int) (interface{}, error) {
-	var products []models.Products
-
-	if err := config.DB.Table("products").Preload("Products").Joins("JOIN cart_details ON products.id = cart_details.products_id").Joins("JOIN carts ON cart_details.carts_id = carts.id").Where("carts.id=?", cartId).Find(&products).Error; err != nil {
-		return products, nil
-	}
-	return products, nil
 }
