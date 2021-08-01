@@ -13,6 +13,16 @@ func CreateCart(cart models.Carts) (models.Carts, error) {
 	return cart, nil
 }
 
+// get cart by id
+func GetCart(cartId int) (models.Carts, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", cartId).Error; err != nil {
+		return cart, err
+	}
+	return cart, nil
+}
+
+// get total price
 func GetTotalPrice(cartId int) (int, error) {
 	var cartDetails models.CartDetails
 	var totalPrice int
@@ -22,6 +32,7 @@ func GetTotalPrice(cartId int) (int, error) {
 	return totalPrice, nil
 }
 
+//get total quantity
 func GetTotalQty(cartId int) (int, error) {
 	var cartDetails models.CartDetails
 	var totalQty int
@@ -31,9 +42,27 @@ func GetTotalQty(cartId int) (int, error) {
 	return totalQty, nil
 }
 
+//update total cart
 func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{}, error) {
 	var cart models.Carts
 	if err := config.DB.Model(&cart).Where("id=?", cartId).Updates(models.Carts{TotalPrice: newTotalPrice, TotalQuantity: newTotalQty}).Error; err != nil {
+		return nil, err
+	}
+	return cart, nil
+}
+
+//check is cart id exist on table cart
+func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
+	if err := config.DB.Where("id=?", cartId).First(&cart).Error; err != nil {
+		return nil, err
+	}
+	return cart.ID, nil
+}
+
+// get cart by id
+func GetCartById(id int) (interface{}, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
 		return nil, err
 	}
 	return cart, nil

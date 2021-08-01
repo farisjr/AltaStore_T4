@@ -12,7 +12,7 @@ import (
 func AddToCartController(c echo.Context) error {
 	var cart models.Carts
 
-	//check id cart
+	//check id cart is exist
 	cartId, err := strconv.Atoi(c.Param("cartId"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -43,11 +43,7 @@ func AddToCartController(c echo.Context) error {
 	}
 
 	//get price
-<<<<<<< Updated upstream
-	getProduct, err := database.GetProduct(productId)
-=======
 	getProduct, _ := database.GetProduct(productId)
->>>>>>> Stashed changes
 
 	//set data cart details
 	cartDetails = models.CartDetails{
@@ -61,16 +57,9 @@ func AddToCartController(c echo.Context) error {
 	newCartDetail, _ := database.AddToCart(cartDetails)
 
 	//update total quantity and total price on table carts
-<<<<<<< Updated upstream
-	getCart, err := database.GetCart(cartId)
-	newTotalPrice, err := database.GetTotalPrice(cartDetails.CartsID)
-	newTotalQty, err := database.GetTotalQty(cartDetails.CartsID)
-
-=======
 	getCart, _ := database.GetCart(cartId)
 	newTotalPrice, _ := database.GetTotalPrice(cartDetails.CartsID)
 	newTotalQty, _ := database.GetTotalQty(cartDetails.CartsID)
->>>>>>> Stashed changes
 	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
 	if err != nil {
 		return c.JSON(http.StatusOK, map[string]interface{}{
