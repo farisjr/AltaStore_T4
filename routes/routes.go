@@ -24,6 +24,7 @@ func New(e *echo.Echo) {
 	//carts
 	e.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
 	e.GET("/api/carts/:id", controllers.GetCartController)
+	e.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController)
 	// e.POST("api/carts", controllers.CreateCartController)
 
 	r := e.Group("/jwt")
