@@ -37,3 +37,27 @@ func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{
 	}
 	return cart, nil
 }
+
+func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
+	if err := config.DB.Where("id=?", cartId).First(&cart).Error; err != nil {
+		return nil, err
+	}
+	return cart.ID, nil
+}
+
+func GetCartById(id int) (interface{}, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
+		return nil, err
+	}
+	return cart, nil
+}
+
+func GetListProductCart(cartId int) (interface{}, error) {
+	var products []models.Products
+
+	if err := config.DB.Table("products").Preload("Products").Joins("JOIN cart_details ON products.id = cart_details.products_id").Joins("JOIN carts ON cart_details.carts_id = carts.id").Where("carts.id=?", cartId).Find(&products).Error; err != nil {
+		return products, nil
+	}
+	return products, nil
+}
