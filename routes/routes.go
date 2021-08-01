@@ -23,6 +23,7 @@ func New(e *echo.Echo) {
 
 	//carts
 	e.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
+	e.GET("/api/carts/:id", controllers.GetCartController)
 	// e.POST("api/carts", controllers.CreateCartController)
 
 	r := e.Group("/jwt")
