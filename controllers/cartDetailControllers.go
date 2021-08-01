@@ -12,7 +12,7 @@ import (
 func AddToCartController(c echo.Context) error {
 	var cart models.Carts
 
-	//check id cart
+	//check id cart is exist
 	cartId, err := strconv.Atoi(c.Param("cartId"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -44,6 +44,9 @@ func AddToCartController(c echo.Context) error {
 
 	//get price
 	getProduct, err := database.GetProduct(productId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
 
 	//set data cart details
 	cartDetails = models.CartDetails{
@@ -61,8 +64,19 @@ func AddToCartController(c echo.Context) error {
 
 	//update total quantity and total price on table carts
 	getCart, err := database.GetCart(cartId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
 	newTotalPrice, err := database.GetTotalPrice(cartDetails.CartsID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
 	newTotalQty, err := database.GetTotalQty(cartDetails.CartsID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
 
 	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
 	if err != nil {
@@ -75,5 +89,92 @@ func AddToCartController(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":      "add product to cart success",
 		"cartDetails": newCartDetail,
+	})
+}
+
+func DeleteProductFromCartController(c echo.Context) error {
+	//convert cart id
+	cartId, err := strconv.Atoi(c.Param("carts_id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid cart id",
+		})
+	}
+
+	//check is cart id exist on table cart
+	var cart models.Carts
+	checkCartId, err := database.CheckCartId(cartId, cart)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":     "cant find cart",
+			"checkCartId": checkCartId,
+		})
+	}
+
+	//convert product id
+	productId, err := strconv.Atoi(c.Param("products_id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid product id",
+		})
+	}
+
+	//check is product id exist on table product
+	var product models.Products
+	checkProductId, err := database.CheckProductId(productId, product)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":     "cant find product",
+			"checkCartId": checkProductId,
+		})
+	}
+
+	//check is product id and cart id exist on table cart_detail
+	var cartDetails models.CartDetails
+	checkProductAndCartId, err := database.CheckProductAndCartId(productId, cartId, cartDetails)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":     "cant find product id and cart id",
+			"checkCartId": checkProductAndCartId,
+		})
+	}
+
+	//delete product
+	deleteProduct, err := database.DeleteProductFromCart(cartId, productId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	//update total quantity and total price on table carts
+	getCart, err := database.GetCart(cartId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	//
+	getCartDetailByCartId, err := database.GetCartDetailByCartId(cartId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	newTotalPrice, err := database.GetTotalPrice(getCartDetailByCartId.CartsID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	newTotalQty, err := database.GetTotalQty(getCartDetailByCartId.CartsID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
+	if err != nil {
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"status":      "update total quantity and total price success",
+			"cartDetails": updateTotalCart,
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "delete product on table cart_details success",
+		"product": deleteProduct,
 	})
 }
