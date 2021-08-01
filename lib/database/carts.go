@@ -5,9 +5,10 @@ import (
 	"project/models"
 )
 
-func CreateCart(cart models.Carts) (interface{}, error) {
+// add new cart
+func CreateCart(cart models.Carts) (models.Carts, error) {
 	if err := config.DB.Save(&cart).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
