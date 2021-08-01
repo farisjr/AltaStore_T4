@@ -5,13 +5,6 @@ import (
 	"project/models"
 )
 
-func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
-	if err := config.DB.Where("id=?", cartId).First(&cart).Error; err != nil {
-		return nil, err
-	}
-	return cart.ID, nil
-}
-
 func CheckProductId(productId int, product models.Products) (interface{}, error) {
 	if err := config.DB.Where("id=?", productId).First(&product).Error; err != nil {
 		return nil, err

@@ -10,7 +10,7 @@ type Carts struct {
 	TotalPrice         int    `json:"total_price" form:"total_price"`
 
 	//many to many
-	Products []*Products `gorm:"many2many:cart_details"`
+	Products []*Products `gorm:"many2many:cart_details" json:"products"`
 
 	//1 to many
 	CustomersID      int
