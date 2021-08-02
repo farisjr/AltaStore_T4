@@ -18,17 +18,29 @@ func New(e *echo.Echo) {
 	e.POST("/customers", controllers.CreateCustomersController)
 	e.GET("/customers/:id", controllers.GetCustomersidController)
 	e.POST("/login", controllers.LoginCustomersControllers)
-	//e.DELETE("/users/:id", controllers.DeleteUserController)
-	//e.PUT("/users/:id", controllers.UpdateUserController)
+	e.DELETE("/customers/:id", controllers.DeleteCustomersByIdController)
+	e.PUT("/customers/:id", controllers.UpdateCustomersController)
 
-	//carts
-	e.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
-	e.GET("/api/carts/:id", controllers.GetCartController)
-	e.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController)
-	// e.POST("api/carts", controllers.CreateCartController)
+	e.POST("/products", controllers.CreateProductsController)
+	e.GET("/products", controllers.GetProductsController)
+	e.GET("/products/:id", controllers.GetProductidController)
+	e.DELETE("/products/:id", controllers.DeleteProductByIdController)
+	e.PUT("/products/:id", controllers.UpdateProductController)
 
 	r := e.Group("/jwt")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
+	//carts
+	r.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
+	r.GET("/api/carts/:id", controllers.GetCartController)
+	r.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController)
+	// e.POST("api/carts", controllers.CreateCartController)
 
+	r.GET("/products/productcategories/:name", controllers.GetProductByProductCategoryController)
+
+	r.POST("/productcategories", controllers.CreateProductCategoriesController)
+	r.GET("/productcategories", controllers.GetProductCategoriesController)
+	r.GET("/productcategories/:id", controllers.GetProductCategoriesIdController)
+	r.DELETE("/productcategories/:id", controllers.DeleteProductCategoriesByIdController)
+	r.PUT("/productcategories/:id", controllers.UpdateProductCategoriesController)
 }
