@@ -21,7 +21,6 @@ func GetProduct(productId int) (models.Products, error) {
 	}
 	return product, nil
 }
-<<<<<<< HEAD
 
 func GetProducts() (interface{}, error) {
 	var products []models.Products
@@ -84,5 +83,3 @@ func GetUpdateProduct(id int) models.Products {
 	config.DB.Find(&product, "id=?", id)
 	return product
 }
-=======
->>>>>>> origin/feature_add_new_cart

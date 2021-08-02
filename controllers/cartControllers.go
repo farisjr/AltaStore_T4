@@ -9,8 +9,6 @@ import (
 	"github.com/labstack/echo"
 )
 
-<<<<<<< HEAD
-=======
 func CreateCartController(c echo.Context) error {
 	// ------------ cart -------------
 	// create new cart
@@ -81,7 +79,6 @@ func CreateCartController(c echo.Context) error {
 	})
 }
 
->>>>>>> origin/feature_add_new_cart
 func GetCartController(c echo.Context) error {
 	//convert cart_id
 	id, err := strconv.Atoi(c.Param("id"))
@@ -101,22 +98,9 @@ func GetCartController(c echo.Context) error {
 		})
 	}
 
-<<<<<<< HEAD
-	//get cart by id
-	listCart, err := database.GetCartById(id)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	//get all products based on cart id
-	products, err := database.GetListProductCart(id)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-=======
 	listCart, _ := database.GetCartById(id) //get cart by id
 
 	products, _ := database.GetListProductCart(id) //get all products based on cart id
->>>>>>> origin/feature_add_new_cart
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message":  "success get all products by cart id",
