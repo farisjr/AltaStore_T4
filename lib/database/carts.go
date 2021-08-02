@@ -6,9 +6,13 @@ import (
 )
 
 // add new cart
+<<<<<<< HEAD
 func CreateCart(cart models.Carts) (interface{}, error) {
+=======
+func CreateCart(cart models.Carts) (models.Carts, error) {
+>>>>>>> origin/feature_add_new_cart
 	if err := config.DB.Save(&cart).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
@@ -22,6 +26,18 @@ func GetCart(cartId int) (models.Carts, error) {
 	return cart, nil
 }
 
+<<<<<<< HEAD
+// get cart by id
+func GetCart(cartId int) (models.Carts, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", cartId).Error; err != nil {
+		return cart, err
+	}
+	return cart, nil
+}
+
+=======
+>>>>>>> origin/feature_add_new_cart
 // get total price
 func GetTotalPrice(cartId int) (int, error) {
 	var cartDetails models.CartDetails
