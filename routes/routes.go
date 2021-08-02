@@ -9,6 +9,8 @@ import (
 )
 
 func New(e *echo.Echo) {
+
+	//------------------Non Authorized----------------------//
 	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
 	e.GET("/paymentMethods/:id", controllers.GetOnePaymentMethodsController)
 	e.POST("/paymentMethods", controllers.CreatePaymentMethodsController)
@@ -21,29 +23,22 @@ func New(e *echo.Echo) {
 	e.DELETE("/customers/:id", controllers.DeleteCustomersByIdController)
 	e.PUT("/customers/:id", controllers.UpdateCustomersController)
 
-<<<<<<< HEAD
 	e.POST("/products", controllers.CreateProductsController)
 	e.GET("/products", controllers.GetProductsController)
 	e.GET("/products/:id", controllers.GetProductidController)
 	e.DELETE("/products/:id", controllers.DeleteProductByIdController)
 	e.PUT("/products/:id", controllers.UpdateProductController)
-=======
-	//carts
-	e.POST("/api/cart/:productId/:qty", controllers.CreateCartController)                            // create new shopping cart
-	e.POST("api/carts/:cartId/details", controllers.AddToCartController)                             //add product to cart
-	e.GET("/api/carts/:id", controllers.GetCartController)                                           //get all product on a cart
-	e.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //add product to existing shopping cart
->>>>>>> origin/feature_add_new_cart
 
-	//----------------
+	//----------------Authorized Only----------------------//
 	r := e.Group("/jwt")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
+
 	//carts
-	r.POST("api/carts/:cartId/details", controllers.AddToCartController) //add product to cart
-	r.GET("/api/carts/:id", controllers.GetCartController)
-	r.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController)
-	// e.POST("api/carts", controllers.CreateCartController)
+	r.POST("/carts/:productId/:qty", controllers.CreateCartController)                           // create new shopping cart
+	r.POST("/carts/:cartId/details", controllers.AddToCartController)                            //add product to cart
+	r.GET("/carts/:id", controllers.GetCartController)                                           //get all product on a cart
+	r.DELETE("/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //delete product from cart
 
 	r.GET("/products/productcategories/:name", controllers.GetProductByProductCategoryController)
 

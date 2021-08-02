@@ -64,3 +64,10 @@ func GetUpdateCustomers(id int) models.Customers {
 	config.DB.Find(&customers, "id=?", id)
 	return customers
 }
+
+//get token user
+func GetToken(id int) string {
+	var customer models.Customers
+	config.DB.Model(&customer).Select("token").Where("id=?", id)
+	return customer.Token
+}
