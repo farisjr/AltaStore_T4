@@ -21,12 +21,21 @@ func New(e *echo.Echo) {
 	e.DELETE("/customers/:id", controllers.DeleteCustomersByIdController)
 	e.PUT("/customers/:id", controllers.UpdateCustomersController)
 
+<<<<<<< HEAD
 	e.POST("/products", controllers.CreateProductsController)
 	e.GET("/products", controllers.GetProductsController)
 	e.GET("/products/:id", controllers.GetProductidController)
 	e.DELETE("/products/:id", controllers.DeleteProductByIdController)
 	e.PUT("/products/:id", controllers.UpdateProductController)
+=======
+	//carts
+	e.POST("/api/cart/:productId/:qty", controllers.CreateCartController)                            // create new shopping cart
+	e.POST("api/carts/:cartId/details", controllers.AddToCartController)                             //add product to cart
+	e.GET("/api/carts/:id", controllers.GetCartController)                                           //get all product on a cart
+	e.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //add product to existing shopping cart
+>>>>>>> origin/feature_add_new_cart
 
+	//----------------
 	r := e.Group("/jwt")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
