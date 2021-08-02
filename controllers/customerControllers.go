@@ -17,7 +17,7 @@ func GetCustomersidController(c echo.Context) error {
 			"message": "invalid id",
 		})
 	}
-	customers, err := database.GetCustomers(id)
+	customers, err := database.GetCustomersid(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
