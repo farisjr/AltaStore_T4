@@ -36,6 +36,6 @@ func InitMigrate() {
 	DB.AutoMigrate(&models.CartDetails{})
 	DB.AutoMigrate(&models.Carts{})
 	DB.AutoMigrate(&models.Products{})
-	DB.AutoMigrate(&models.Transactions{})
+	DB.AutoMigrate(&models.ProductCategories{})
 	DB.AutoMigrate(&models.PaymentMethods{})
 }
