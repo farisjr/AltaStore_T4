@@ -43,14 +43,7 @@ func AddToCartController(c echo.Context) error {
 	}
 
 	//get price
-<<<<<<< HEAD
-	getProduct, err := database.GetProduct(productId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-=======
 	getProduct, _ := database.GetProduct(productId)
->>>>>>> origin/feature_add_new_cart
 
 	//set data cart details
 	cartDetails = models.CartDetails{
@@ -64,27 +57,9 @@ func AddToCartController(c echo.Context) error {
 	newCartDetail, _ := database.AddToCart(cartDetails)
 
 	//update total quantity and total price on table carts
-<<<<<<< HEAD
-	getCart, err := database.GetCart(cartId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-	newTotalPrice, err := database.GetTotalPrice(cartDetails.CartsID)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-	newTotalQty, err := database.GetTotalQty(cartDetails.CartsID)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-=======
 	getCart, _ := database.GetCart(cartId)
 	newTotalPrice, _ := database.GetTotalPrice(cartDetails.CartsID)
 	newTotalQty, _ := database.GetTotalQty(cartDetails.CartsID)
->>>>>>> origin/feature_add_new_cart
 	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
 	if err != nil {
 		return c.JSON(http.StatusOK, map[string]interface{}{
@@ -147,33 +122,6 @@ func DeleteProductFromCartController(c echo.Context) error {
 	}
 
 	//delete product
-<<<<<<< HEAD
-	deleteProduct, err := database.DeleteProductFromCart(cartId, productId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-	//update total quantity and total price on table carts
-	getCart, err := database.GetCart(cartId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	//
-	getCartDetailByCartId, err := database.GetCartDetailByCartId(cartId)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-	newTotalPrice, err := database.GetTotalPrice(getCartDetailByCartId.CartsID)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	newTotalQty, err := database.GetTotalQty(getCartDetailByCartId.CartsID)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-
-=======
 	deleteProduct, _ := database.DeleteProductFromCart(cartId, productId)
 
 	//update total quantity and total price on table carts
@@ -181,7 +129,6 @@ func DeleteProductFromCartController(c echo.Context) error {
 	getCartDetailByCartId, _ := database.GetCartDetailByCartId(cartId)
 	newTotalPrice, _ := database.GetTotalPrice(getCartDetailByCartId.CartsID)
 	newTotalQty, _ := database.GetTotalQty(getCartDetailByCartId.CartsID)
->>>>>>> origin/feature_add_new_cart
 	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
 	if err != nil {
 		return c.JSON(http.StatusOK, map[string]interface{}{
