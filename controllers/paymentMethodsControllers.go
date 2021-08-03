@@ -78,15 +78,16 @@ func UpdatePaymentMethodsController(c echo.Context) error {
 			"message": "invalid id",
 		})
 	}
-	paymentMethod := models.PaymentMethods{}
+	paymentMethod := database.GetUpdatePaymentMethod(id)
 	c.Bind(&paymentMethod)
-	paymentMethods, err := database.UpdatePaymentMethodsById(paymentMethod, id)
+	paymentMethodUpdate, err := database.UpdatePaymentMethod(paymentMethod)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success updating payment method",
-		"data":    paymentMethods,
+		"data":    paymentMethodUpdate,
 	})
 }
+
