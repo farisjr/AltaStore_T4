@@ -33,6 +33,7 @@ func InitPort() {
 
 func InitMigrate() {
 	DB.AutoMigrate(&models.Customers{})
+	DB.AutoMigrate(&models.Sellers{})
 	DB.AutoMigrate(&models.CartDetails{})
 	DB.AutoMigrate(&models.Carts{})
 	DB.AutoMigrate(&models.Products{})
