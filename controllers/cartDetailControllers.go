@@ -57,20 +57,13 @@ func AddToCartController(c echo.Context) error {
 	newCartDetail, _ := database.AddToCart(cartDetails)
 
 	//update total quantity and total price on table carts
-	getCart, _ := database.GetCart(cartId)
-	newTotalPrice, _ := database.GetTotalPrice(cartDetails.CartsID)
-	newTotalQty, _ := database.GetTotalQty(cartDetails.CartsID)
-	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
-	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"status":      "update total quantity and total price success",
-			"cartDetails": updateTotalCart,
-		})
-	}
+	newTotalQty, newTotalPrice := UpdateTotalCart(cartId)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":      "add product to cart success",
-		"cartDetails": newCartDetail,
+		"status":         "add product to cart success",
+		"cartDetails":    newCartDetail,
+		"Total Quantity": newTotalQty,
+		"Total Price":    newTotalPrice,
 	})
 }
 
@@ -121,24 +114,25 @@ func DeleteProductFromCartController(c echo.Context) error {
 		})
 	}
 
-	//delete product
-	deleteProduct, _ := database.DeleteProductFromCart(cartId, productId)
+	//---------delete product------//
+	countProduct, _ := database.CountProductOnCart(cartId) //count product
+	var deleteProduct interface{}
+	var newTotalQty, newTotalPrice int
 
-	//update total quantity and total price on table carts
-	getCart, _ := database.GetCart(cartId)
-	getCartDetailByCartId, _ := database.GetCartDetailByCartId(cartId)
-	newTotalPrice, _ := database.GetTotalPrice(getCartDetailByCartId.CartsID)
-	newTotalQty, _ := database.GetTotalQty(getCartDetailByCartId.CartsID)
-	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
-	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"status":      "update total quantity and total price success",
-			"cartDetails": updateTotalCart,
-		})
+	if countProduct > 1 { //if product on cart > 1, delete product on cart detail + update total on cart
+		deleteProduct, _ = database.DeleteProductFromCart(cartId, productId)
+		newTotalQty, newTotalPrice = UpdateTotalCart(cartId)
+	} else if countProduct == 1 { //if product only 1, delete product on cart detail + delete cart + output total = 0
+		deleteProduct, _ = database.DeleteProductFromCart(cartId, productId)
+		database.DeleteCart(cartId)
+		newTotalPrice = 0
+		newTotalQty = 0
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "delete product on table cart_details success",
-		"product": deleteProduct,
+		"message":         "delete product on table cart_details success",
+		"Deleted Product": deleteProduct,
+		"Total Quantity":  newTotalQty,
+		"Total Price":     newTotalPrice,
 	})
 }

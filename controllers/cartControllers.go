@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"project/lib/database"
 	"project/middlewares"
@@ -11,23 +10,14 @@ import (
 	"github.com/labstack/echo"
 )
 
-// func Authorization(c echo.Context) (bool, models.Customers) {
-// 	customerId := middlewares.ExtractTokenCustomerId(c)
-// 	customers := database.GetUpdateCustomers(customerId)
-// 	token := database.GetToken(customerId)
-
-// 	if customers.Token != token {
-// 		return false, customers
-// 	}
-// 	return true, customers
-// }
-
 func CreateCartController(c echo.Context) error {
-	// ------------ cart -------------
-	//rec use
+
+	// ------------ cart -------------//
+	//rec user input
 	cart := models.Carts{}
 	c.Bind(&cart) //input: payment method id
 
+	// get id user login
 	customerId := middlewares.ExtractTokenCustomerId(c)
 
 	//check product id on table product
@@ -36,12 +26,12 @@ func CreateCartController(c echo.Context) error {
 	checkPayment, err := database.CheckPayment(paymentId, payment)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find payment",
+			"message":        "cant find payment method",
 			"checkProductId": checkPayment,
 		})
 	}
 
-	//set data
+	//set data cart and create new cart
 	cart = models.Carts{
 		StatusTransactions: "ordered",
 		TotalQuantity:      0,
@@ -50,10 +40,8 @@ func CreateCartController(c echo.Context) error {
 		PaymentMethodsID:   paymentId,
 	}
 	newCart, _ := database.CreateCart(cart)
-	fmt.Println("newCart ", newCart)
 
-	//------------ cart detail -------------
-
+	//------------ cart detail -------------//
 	// convert product id
 	productId, err := strconv.Atoi(c.Param("productId"))
 	if err != nil {
@@ -61,6 +49,7 @@ func CreateCartController(c echo.Context) error {
 			"message": "invalid id product",
 		})
 	}
+
 	// check product id on table product
 	var product models.Products
 	checkProductId, err := database.CheckProductId(productId, product)
@@ -89,24 +78,25 @@ func CreateCartController(c echo.Context) error {
 	newCartDetail, _ := database.AddToCart(cartDetails)
 
 	//update total quantity and total price on table carts
-	getCart, _ := database.GetCart(newCart.ID)
-	newTotalPrice, _ := database.GetTotalPrice(cartDetails.CartsID)
-	newTotalQty, _ := database.GetTotalQty(cartDetails.CartsID)
-	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
-	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"status":      "update total quantity and total price success",
-			"cartDetails": updateTotalCart,
-		})
-	}
+	UpdateTotalCart(newCart.ID)
 
-	updatedCart, _ := database.GetCart(newCart.ID) //get cart updated (total qty&total price)
+	//get cart updated (total qty&total price)
+	updatedCart, _ := database.GetCart(newCart.ID)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":      "create cart success",
 		"cart":        updatedCart,
 		"cartDetails": newCartDetail,
 	})
+}
+
+//func for update total quantity and total price on table carts
+func UpdateTotalCart(cartId int) (int, int) {
+	newTotalPrice, _ := database.GetTotalPrice(cartId)
+	newTotalQty, _ := database.GetTotalQty(cartId)
+	newCart, _ := database.UpdateTotalCart(cartId, newTotalPrice, newTotalQty)
+
+	return newCart.TotalQuantity, newCart.TotalPrice
 }
 
 func GetCartController(c echo.Context) error {

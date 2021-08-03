@@ -13,6 +13,6 @@ type Carts struct {
 	Products []*Products `gorm:"many2many:cart_details" json:"products"`
 
 	//1 to many
-	CustomersID      int
-	PaymentMethodsID int
+	CustomersID      int `json:"customers_id" form:"customers_id"`
+	PaymentMethodsID int `json:"payment_methods_id" form:"payment_methods_id"`
 }
