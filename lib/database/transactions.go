@@ -13,10 +13,10 @@ func GetTransactionStatus(id int) models.Carts {
 }
 
 //udpate transaction status
-func UpdateTransactionStatus(cart models.Carts) (interface{}, error) {
+func UpdateTransactionStatus(cart models.Carts) (models.Carts, error) {
 
 	if err := config.DB.Save(&cart).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }

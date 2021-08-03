@@ -5,9 +5,9 @@ import (
 	"project/models"
 )
 
-func CreateProductCategories(productCategories models.ProductCategories) (interface{}, error) {
+func CreateProductCategories(productCategories models.ProductCategories) (models.ProductCategories, error) {
 	if err := config.DB.Save(&productCategories).Error; err != nil {
-		return nil, err
+		return productCategories, err
 	}
 	return productCategories, nil
 }
@@ -20,14 +20,14 @@ func GetProductCategories() (interface{}, error) {
 	return productcategories, nil
 }
 
-func GetProductCategoriesId(id int) (interface{}, error) {
+func GetProductCategoriesId(id int) (models.ProductCategories, error) {
 	var productcategories models.ProductCategories
 	var count int64
 	if err1 := config.DB.Model(&productcategories).Where("id=?", id).Count(&count).Error; count == 0 {
-		return nil, err1
+		return productcategories, err1
 	}
 	if err := config.DB.Find(&productcategories, "id=?", id).Error; err != nil {
-		return nil, err
+		return productcategories, err
 	}
 	return productcategories, nil
 }
@@ -41,9 +41,9 @@ func DeleteProductCategoriesById(id int) (interface{}, error) {
 }
 
 //update product categories info from database
-func UpdateProductCategories(productcategories models.ProductCategories) (interface{}, error) {
+func UpdateProductCategories(productcategories models.ProductCategories) (models.ProductCategories, error) {
 	if tx := config.DB.Save(&productcategories).Error; tx != nil {
-		return nil, tx
+		return productcategories, tx
 	}
 	return productcategories, nil
 }

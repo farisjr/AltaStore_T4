@@ -22,21 +22,37 @@
 
 ## About
 
-description here
+This project is example of E-Commerce application providing REST API
 
 ### Features
 
 - [x] Register
 - [x] Login
 - [x] Get customer
+- [x] Edit customer
+- [x] Delete customer
+- [x] Create category
+- [x] Get all categories
+- [x] Get category
+- [x] Edit category
+- [x] Delete category
+- [x] Create product
 - [x] Get all products
-- [x] Get all products by product category
 - [x] Get product
-- [x] Create new shopping cart
+- [x] Get all products by product category
+- [x] Edit product
+- [x] Delete product
+- [x] Create new cart
 - [x] Add product to cart
-- [x] Get all products on shopping cart
-- [x] Delete product from shopping cart
-- [x] Create transaction and payment
+- [x] Get all products on cart
+- [x] Delete product from cart
+- [x] Delete cart
+- [x] Create payment method
+- [x] Get all payment methods
+- [x] Get payment method
+- [x] Edit payment method
+- [x] Delete payment method
+- [x] Transaction
 
 ### API Documentation
 
