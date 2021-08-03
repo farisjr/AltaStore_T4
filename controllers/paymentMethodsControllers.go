@@ -31,9 +31,20 @@ func GetOnePaymentMethodsController(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
+
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": paymentMethods.CreatedAt,
+		"UpdatedAt": paymentMethods.UpdatedAt,
+		"DeletedAt": paymentMethods.DeletedAt,
+		"id":        paymentMethods.ID,
+		"name":      paymentMethods.Name,
+		"status":    paymentMethods.Status,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success get payment method data",
-		"data":    paymentMethods,
+		"data":    output,
 	})
 }
 
@@ -46,9 +57,19 @@ func CreatePaymentMethodsController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": paymentMethods.CreatedAt,
+		"UpdatedAt": paymentMethods.UpdatedAt,
+		"DeletedAt": paymentMethods.DeletedAt,
+		"id":        paymentMethods.ID,
+		"name":      paymentMethods.Name,
+		"status":    paymentMethods.Status,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"messages": "success create payment methods",
-		"data":     paymentMethods,
+		"data":     output,
 	})
 }
 
@@ -85,9 +106,19 @@ func UpdatePaymentMethodsController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": paymentMethodUpdate.CreatedAt,
+		"UpdatedAt": paymentMethodUpdate.UpdatedAt,
+		"DeletedAt": paymentMethodUpdate.DeletedAt,
+		"id":        paymentMethodUpdate.ID,
+		"name":      paymentMethodUpdate.Name,
+		"status":    paymentMethodUpdate.Status,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success updating payment method",
-		"data":    paymentMethodUpdate,
+		"data":    output,
 	})
 }
 

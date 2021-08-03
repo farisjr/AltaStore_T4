@@ -55,7 +55,7 @@ func GetProductByProductCategory(name string) (interface{}, error) {
 		return nil, err
 	}
 	var products []models.Products
-	if err := config.DB.Find(&products, "productcategories_id=?", productcategories.ID).Error; err != nil {
+	if err := config.DB.Find(&products, "product_categories_id=?", productcategories.ID).Error; err != nil {
 		return nil, err
 	}
 	return products, nil

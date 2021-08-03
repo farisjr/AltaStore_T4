@@ -32,9 +32,9 @@ func GetPaymentMethodsById(id int) (models.PaymentMethods, error) {
 }
 
 // creating new payment methods
-func CreatePaymentMethods(createPaymentMethod models.PaymentMethods) (interface{}, error) {
+func CreatePaymentMethods(createPaymentMethod models.PaymentMethods) (models.PaymentMethods, error) {
 	if err := config.DB.Save(&createPaymentMethod).Error; err != nil {
-		return nil, err
+		return createPaymentMethod, err
 	}
 	return createPaymentMethod, nil
 }
@@ -59,9 +59,9 @@ func GetUpdatePaymentMethod(id int) models.PaymentMethods {
 }
 
 //update payment method  from database
-func UpdatePaymentMethod(paymentMethod models.PaymentMethods) (interface{}, error) {
+func UpdatePaymentMethod(paymentMethod models.PaymentMethods) (models.PaymentMethods, error) {
 	if tx := config.DB.Save(&paymentMethod).Error; tx != nil {
-		return nil, tx
+		return paymentMethod, tx
 	}
 	return paymentMethod, nil
 }

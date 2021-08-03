@@ -10,8 +10,6 @@ import (
 
 func New(e *echo.Echo) {
 
-	//e.PUT("/transactions/:id", controllers.UpdateTransactionStatusController)
-
 	//------------------Non Authorized----------------------//
 	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
 	e.GET("/paymentMethods/:id", controllers.GetOnePaymentMethodsController)
@@ -24,7 +22,6 @@ func New(e *echo.Echo) {
 	e.POST("/sellers", controllers.CreateSellersController)
 	e.PUT("/sellers/:id", controllers.UpdateSellersController)
 	e.DELETE("/sellers/:id", controllers.DeleteSellersController)
-	e.POST("/login/seller", controllers.LoginSellerControllers)
 
 	e.POST("/customers", controllers.CreateCustomersController)
 	e.GET("/customers/:id", controllers.GetCustomersidController)
@@ -49,6 +46,8 @@ func New(e *echo.Echo) {
 	r.GET("/carts/:id", controllers.GetCartController)                                           //get all product on a cart
 	r.DELETE("/carts/:id", controllers.DeleteCartController)                                     //delete cart and all products included on it
 	r.DELETE("/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //delete product from cart
+
+	r.PUT("/transactions/:id", controllers.UpdateTransactionStatusController)
 
 	r.GET("/products/productcategories/:name", controllers.GetProductByProductCategoryController)
 

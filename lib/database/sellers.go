@@ -77,8 +77,25 @@ func GetUpdateSellers(id int) models.Sellers {
 	return sellers
 }
 
-func GetSellerToken(id int) string {
-	var seller models.Sellers
-	config.DB.Model(&seller).Select("token").Where("id=?", id)
-	return seller.Token
+//function for deleting sellers by id
+func DeleteSellersById(id int) (interface{}, error) {
+	var sellers []models.Sellers
+	if err := config.DB.Find(&sellers, "id=?", id).Error; err != nil {
+		return nil, err
+	}
+	if err := config.DB.Delete(&sellers, "id=?", id).Error; err != nil {
+		return nil, err
+	}
+	return sellers, nil
+}
+
+//function update sellers by id
+func UpdateSellersById(sellers models.Sellers, id int) (interface{}, error) {
+	if err := config.DB.Find(&sellers, "id=?", id).Error; err != nil {
+		return nil, err
+	}
+	if err := config.DB.Save(&sellers).Error; err != nil {
+		return nil, err
+	}
+	return sellers, nil
 }
