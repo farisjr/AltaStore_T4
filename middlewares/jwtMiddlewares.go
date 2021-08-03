@@ -28,3 +28,14 @@ func ExtractTokenCustomerId(e echo.Context) int {
 	}
 	return 0
 }
+
+func ExtractTokenSellerId(e echo.Context) int {
+	seller := e.Get("user").(*jwt.Token)
+
+	if seller.Valid {
+		claims := seller.Claims.(jwt.MapClaims)
+		sellerId := int(claims["userId"].(float64))
+		return sellerId
+	}
+	return 0
+}
