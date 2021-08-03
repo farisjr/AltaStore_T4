@@ -128,3 +128,31 @@ func GetCartController(c echo.Context) error {
 		"products": products,
 	})
 }
+
+func DeleteCartController(c echo.Context) error {
+	//convert cart id
+	cartId, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid cart id",
+		})
+	}
+
+	//check is cart id exist on table cart
+	var cart models.Carts
+	checkCartId, err := database.CheckCartId(cartId, cart)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":     "cant find cart",
+			"checkCartId": checkCartId,
+		})
+	}
+
+	//delete cart and products included on it
+	deletedCart, _ := database.DeleteCart(cartId)
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message":      "delete cart success",
+		"Deleted Cart": deletedCart,
+	})
+}
