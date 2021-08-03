@@ -10,7 +10,7 @@ import (
 
 func New(e *echo.Echo) {
 
-	e.PUT("/api/transactions/:id", controllers.UpdateTransactionStatusController)
+	//e.PUT("/api/transactions/:id", controllers.UpdateTransactionStatusController)
 
 	//------------------Non Authorized----------------------//
 	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
@@ -24,6 +24,7 @@ func New(e *echo.Echo) {
 	e.POST("/sellers", controllers.CreateSellersController)
 	e.PUT("/sellers/:id", controllers.UpdateSellersController)
 	e.DELETE("/sellers/:id", controllers.DeleteSellersController)
+	e.POST("/login/seller", controllers.LoginSellerControllers)
 
 	e.POST("/customers", controllers.CreateCustomersController)
 	e.GET("/customers/:id", controllers.GetCustomersidController)
@@ -61,4 +62,7 @@ func New(e *echo.Echo) {
 	r.GET("/productcategories/:id", controllers.GetProductCategoriesIdController)
 	r.DELETE("/productcategories/:id", controllers.DeleteProductCategoriesByIdController)
 	r.PUT("/productcategories/:id", controllers.UpdateProductCategoriesController)
+	
+	//transaction status
+	r.PUT("/transactions/:id", controllers.UpdateTransactionStatusController)
 }
