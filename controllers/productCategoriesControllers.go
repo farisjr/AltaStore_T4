@@ -17,9 +17,19 @@ func CreateProductCategoriesController(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
+
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": productCategoryAdd.CreatedAt,
+		"UpdatedAt": productCategoryAdd.UpdatedAt,
+		"DeletedAt": productCategoryAdd.DeletedAt,
+		"id":        productCategoryAdd.ID,
+		"name":      productCategoryAdd.Name,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success create product category",
-		"user":    productCategoryAdd,
+		"user":    output,
 	})
 }
 
@@ -45,9 +55,19 @@ func GetProductCategoriesIdController(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
+
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": productcategories.CreatedAt,
+		"UpdatedAt": productcategories.UpdatedAt,
+		"DeletedAt": productcategories.DeletedAt,
+		"id":        productcategories.ID,
+		"name":      productcategories.Name,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message":            "success get product categories by id",
-		"product categories": productcategories,
+		"product categories": output,
 	})
 }
 
@@ -88,8 +108,18 @@ func UpdateProductCategoriesController(c echo.Context) error {
 			"message": "cannot post data",
 		})
 	}
+
+	//custom data for body response
+	output := map[string]interface{}{
+		"CreatedAt": productUpdateCategories.CreatedAt,
+		"UpdatedAt": productUpdateCategories.UpdatedAt,
+		"DeletedAt": productUpdateCategories.DeletedAt,
+		"id":        productUpdateCategories.ID,
+		"name":      productUpdateCategories.Name,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message":        "success update product categories",
-		"update product": productUpdateCategories,
+		"update product": output,
 	})
 }

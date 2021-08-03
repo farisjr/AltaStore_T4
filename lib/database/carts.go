@@ -60,19 +60,20 @@ func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
 }
 
 // get cart by id
-func GetCartById(id int) (interface{}, error) {
+func GetCartById(id int) (models.Carts, error) {
 	var cart models.Carts
 	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
 
 //delete cart
-func DeleteCart(cartId int) (interface{}, error) {
+func DeleteCart(cartId int) (models.Carts, error) {
 	var cart models.Carts
 	if err := config.DB.Find(&cart, "id=?", cartId).Unscoped().Delete(&cart).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
+

@@ -83,8 +83,21 @@ func CreateCartController(c echo.Context) error {
 	//get cart updated (total qty&total price)
 	updatedCart, _ := database.GetCart(newCart.ID)
 
+	//custom data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  updatedCart.ID,
+		"customers_id":        updatedCart.CustomersID,
+		"payment_methods_id":  updatedCart.PaymentMethodsID,
+		"status_transactions": updatedCart.StatusTransactions,
+		"total_quantity":      updatedCart.TotalQuantity,
+		"total_price":         updatedCart.TotalPrice,
+		"CreatedAt":           updatedCart.CreatedAt,
+		"UpdatedAt":           updatedCart.UpdatedAt,
+		"DeletedAt":           updatedCart.DeletedAt,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"cart":        updatedCart,
+		"cart":        outputCart,
 		"cartDetails": newCartDetail,
 		"status":      "Create cart success",
 	})
@@ -107,7 +120,6 @@ func GetCartController(c echo.Context) error {
 			"message": "Invalid id cart",
 		})
 	}
-
 	//is cart id exist
 	var cart models.Carts
 	checkCartId, err := database.CheckCartId(id, cart)
@@ -118,12 +130,24 @@ func GetCartController(c echo.Context) error {
 		})
 	}
 
-	listCart, _ := database.GetCartById(id) //get cart by id
-
+	listCart, _ := database.GetCartById(id)        //get cart by id
 	products, _ := database.GetListProductCart(id) //get all products based on cart id
 
+	//custom data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  listCart.ID,
+		"customers_id":        listCart.CustomersID,
+		"payment_methods_id":  listCart.PaymentMethodsID,
+		"status_transactions": listCart.StatusTransactions,
+		"total_quantity":      listCart.TotalQuantity,
+		"total_price":         listCart.TotalPrice,
+		"CreatedAt":           listCart.CreatedAt,
+		"UpdatedAt":           listCart.UpdatedAt,
+		"DeletedAt":           listCart.DeletedAt,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"cart":     listCart,
+		"cart":     outputCart,
 		"products": products,
 		"status":   "Success get all products by cart id",
 	})
@@ -151,8 +175,21 @@ func DeleteCartController(c echo.Context) error {
 	//delete cart and all products included on it
 	deletedCart, _ := database.DeleteCart(cartId)
 
+	//custom output data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  deletedCart.ID,
+		"customers_id":        deletedCart.CustomersID,
+		"payment_methods_id":  deletedCart.PaymentMethodsID,
+		"status_transactions": deletedCart.StatusTransactions,
+		"total_quantity":      deletedCart.TotalQuantity,
+		"total_price":         deletedCart.TotalPrice,
+		"CreatedAt":           deletedCart.CreatedAt,
+		"UpdatedAt":           deletedCart.UpdatedAt,
+		"DeletedAt":           deletedCart.DeletedAt,
+	}
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":       "Delete cart success",
-		"Deleted Cart": deletedCart,
+		"Deleted Cart": outputCart,
 	})
 }

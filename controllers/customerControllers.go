@@ -22,7 +22,7 @@ func GetCustomersidController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get all users",
+		"message": "success get user",
 		"users":   customers,
 	})
 }
@@ -57,9 +57,9 @@ func DeleteCustomersByIdController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":               "success delete product selected",
-		"product before delete": customers,
-		"product after delete":  customersdeleted,
+		"message":                "success delete customer selected",
+		"customer before delete": customers,
+		"customer after delete":  customersdeleted,
 	})
 }
 
@@ -79,7 +79,7 @@ func UpdateCustomersController(c echo.Context) error {
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":         "success update product",
+		"message":         "success update customer",
 		"update customer": customersUpdate,
 	})
 }

@@ -23,9 +23,9 @@ func GetCartDetailByCartId(cartId int) (models.CartDetails, error) {
 }
 
 //add product to cart
-func AddToCart(cartDetails models.CartDetails) (interface{}, error) {
+func AddToCart(cartDetails models.CartDetails) (models.CartDetails, error) {
 	if err := config.DB.Save(&cartDetails).Error; err != nil {
-		return nil, err
+		return cartDetails, err
 	}
 	return cartDetails, nil
 }
