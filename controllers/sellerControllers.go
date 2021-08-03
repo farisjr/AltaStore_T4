@@ -10,7 +10,7 @@ import (
 )
 
 func GetAllSellersController(c echo.Context) error {
-	sellers, err := database.GetSellers()
+	sellers, err := database.GetAllSellers()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -27,7 +27,7 @@ func GetOneSellersController(c echo.Context) error {
 			"message": "invalid id",
 		})
 	}
-	sellers, err := database.GetSellersById(id)
+	sellers, err := database.GetOneSeller(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -55,7 +55,7 @@ func DeleteSellerByIdController(c echo.Context) error {
 	// binding data
 	seller := models.Sellers{}
 	c.Bind(&seller)
-	sellers, err := database.CreateSellers(seller)
+	sellers, err := database.CreateSeller(seller)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -85,7 +85,13 @@ func DeleteSellersController(c echo.Context) error {
 }
 
 func UpdateSellerController(c echo.Context) error {
-	sellers, err := database.DeleteSellersById(id)
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid id",
+		})
+	}
+	sellers, err := database.DeleteSellers(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -94,7 +100,6 @@ func UpdateSellerController(c echo.Context) error {
 		"message": "success delete seller",
 		"data":    sellers,
 	})
-
 }
 
 func UpdateSellersController(c echo.Context) error {
