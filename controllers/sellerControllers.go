@@ -9,8 +9,8 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetSellersControllers(c echo.Context) error {
-	sellers, err := database.GetAllSellers()
+func GetAllSellersController(c echo.Context) error {
+	sellers, err := database.GetSellers()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -20,19 +20,19 @@ func GetSellersControllers(c echo.Context) error {
 	})
 }
 
-func GetSellersIdController(c echo.Context) error {
+func GetOneSellersController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": "invalid id",
 		})
 	}
-	sellers, err := database.GetOneSeller(id)
+	sellers, err := database.GetSellersById(id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get  seller by id",
+		"message": "success get sellers data",
 		"data":    sellers,
 	})
 }
@@ -52,6 +52,21 @@ func CreateSellersController(c echo.Context) error {
 }
 
 func DeleteSellerByIdController(c echo.Context) error {
+	// binding data
+	seller := models.Sellers{}
+	c.Bind(&seller)
+	sellers, err := database.CreateSellers(seller)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"messages": "success create new seller",
+		"data":     sellers,
+	})
+}
+
+func DeleteSellersController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -70,6 +85,19 @@ func DeleteSellerByIdController(c echo.Context) error {
 }
 
 func UpdateSellerController(c echo.Context) error {
+	sellers, err := database.DeleteSellersById(id)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success delete seller",
+		"data":    sellers,
+	})
+
+}
+
+func UpdateSellersController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
