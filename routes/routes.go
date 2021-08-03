@@ -10,7 +10,7 @@ import (
 
 func New(e *echo.Echo) {
 
-	//e.PUT("/api/transactions/:id", controllers.UpdateTransactionStatusController)
+	//e.PUT("/transactions/:id", controllers.UpdateTransactionStatusController)
 
 	//------------------Non Authorized----------------------//
 	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
