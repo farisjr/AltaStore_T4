@@ -36,7 +36,6 @@
 {
     "message": "success create new user",
     "user": {
-        "ID": 0,
         "CreatedAt": "2021-08-03T12:57:09.167+07:00",
         "UpdatedAt": "2021-08-03T12:57:09.167+07:00",
         "DeletedAt": null,
@@ -69,7 +68,6 @@
 {
     "status": "succes login",
     "users": {
-        "ID": 0,
         "CreatedAt": "2021-08-03T12:57:09.167+07:00",
         "UpdatedAt": "2021-08-03T13:03:14.935+07:00",
         "DeletedAt": null,
@@ -91,9 +89,23 @@
 
 ### Body Response
 ```json
-{
-    
-}
+{   
+    "message": "success get user",
+    "users": {
+        "ID": 1,
+        "CreatedAt": "2021-07-31T16:01:34.253+07:00",
+        "UpdatedAt": "2021-08-03T23:05:05.169+07:00",
+        "DeletedAt": null,
+        "name": "pikachu",
+        "address": "bogor",
+        "gender": "M",
+        "email": "pikachu@gmail.com",
+        "password": "2222",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MjgwMTAzMDUsInVzZXJJZCI6MX0.u6d7zO1VF8eEtx7RmAgeDDSM6Nx5zxTyc20Un2WrObk",
+        "Carts": null
+    }
+} 
+
 ```
 
 ## Get all products
@@ -181,18 +193,59 @@
 ### Body Response
 ```json
 {
-    
+    "message": "success get all product by product category",
+    "products": [
+        {
+            "ID": 1,
+            "CreatedAt": "2021-07-31T12:06:53+07:00",
+            "UpdatedAt": "2021-07-31T12:06:53+07:00",
+            "DeletedAt": null,
+            "name": "Maybelline Fit Me 220",
+            "code": "MYBLLN_FTM_220",
+            "status": "active",
+            "price": 75000,
+            "description": "Foundation Fit Me shade 220 from Maybelline",
+            "Carts": null,
+            "ProductCategoriesID": 1
+        }, 
+        {
+            "ID": 3,
+            "CreatedAt": "2021-08-01T14:30:10+07:00",
+            "UpdatedAt": "2021-08-01T14:30:10+07:00",
+            "DeletedAt": null,
+            "name": "Make Over Ultra Cover Liquid Matt Foundation",
+            "code": "MKVR_UCLM",
+            "status": "active",
+            "price": 200000,
+            "description": "Foundation Ultra Cover Liquid Matt from Make Over",
+            "Carts": null,
+            "ProductCategoriesID": 1
+        }
+    ]
 }
 ```
 
 ## Get product
-### URL : `/products`
+### URL : `/products/:id`
 ### Method : `GET`
 
 ### Body Response
 ```json
 {
-    
+    "message": "success get product by id",
+    "products": {
+            "ID": 1,
+            "CreatedAt": "2021-07-31T12:06:53+07:00",
+            "UpdatedAt": "2021-07-31T12:06:53+07:00",
+            "DeletedAt": null,
+            "name": "Maybelline Fit Me 220",
+            "code": "MYBLLN_FTM_220",
+            "status": "active",
+            "price": 75000,
+            "description": "Foundation Fit Me shade 220 from Maybelline",
+            "Carts": null,
+            "ProductCategoriesID": 1
+    }    
 }
 ```
 

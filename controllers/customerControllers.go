@@ -22,7 +22,7 @@ func GetCustomersidController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get all users",
+		"message": "success get user",
 		"users":   customers,
 	})
 }
