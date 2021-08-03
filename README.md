@@ -22,7 +22,7 @@
 
 ## About
 
-description here
+This project is example of E-Commerce application providing REST API 
 
 ### Features
 
@@ -36,6 +36,7 @@ description here
 - [x] Add product to cart
 - [x] Get all products on shopping cart
 - [x] Delete product from shopping cart
+- [x] Delete shopping cart
 - [x] Create transaction and payment
 
 ### API Documentation
@@ -48,7 +49,7 @@ Below we describe how to start this project
 
 ### Installing
 
-You must download and install `golang`, follow [this instruction](https://golang.org/doc/install) to install.
+You must download and install `Go`, follow [this instruction](https://golang.org/doc/install) to install.
 
 After Golang installed, Follow this instructions
 ```bash
