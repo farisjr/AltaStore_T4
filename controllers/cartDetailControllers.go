@@ -16,13 +16,13 @@ func AddToCartController(c echo.Context) error {
 	cartId, err := strconv.Atoi(c.Param("cartId"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid id cart",
+			"message": "Invalid id cart",
 		})
 	}
 	checkCartId, err := database.CheckCartId(cartId, cart)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":     "cant find cart",
+			"message":     "Cant find cart",
 			"checkCartId": checkCartId,
 		})
 	}
@@ -37,7 +37,7 @@ func AddToCartController(c echo.Context) error {
 	checkProductId, err := database.CheckProductId(productId, product)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find product",
+			"message":        "Cant find product",
 			"checkProductId": checkProductId,
 		})
 	}
@@ -60,10 +60,10 @@ func AddToCartController(c echo.Context) error {
 	newTotalQty, newTotalPrice := UpdateTotalCart(cartId)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":         "add product to cart success",
 		"cartDetails":    newCartDetail,
 		"Total Quantity": newTotalQty,
 		"Total Price":    newTotalPrice,
+		"status":         "Add product to cart success",
 	})
 }
 
@@ -72,7 +72,7 @@ func DeleteProductFromCartController(c echo.Context) error {
 	cartId, err := strconv.Atoi(c.Param("carts_id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid cart id",
+			"message": "Invalid cart id",
 		})
 	}
 
@@ -81,7 +81,7 @@ func DeleteProductFromCartController(c echo.Context) error {
 	checkCartId, err := database.CheckCartId(cartId, cart)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":     "cant find cart",
+			"message":     "Cant find cart",
 			"checkCartId": checkCartId,
 		})
 	}
@@ -90,7 +90,7 @@ func DeleteProductFromCartController(c echo.Context) error {
 	productId, err := strconv.Atoi(c.Param("products_id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid product id",
+			"message": "Invalid product id",
 		})
 	}
 
@@ -99,7 +99,7 @@ func DeleteProductFromCartController(c echo.Context) error {
 	checkProductId, err := database.CheckProductId(productId, product)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":     "cant find product",
+			"message":     "Cant find product",
 			"checkCartId": checkProductId,
 		})
 	}
@@ -109,7 +109,7 @@ func DeleteProductFromCartController(c echo.Context) error {
 	checkProductAndCartId, err := database.CheckProductAndCartId(productId, cartId, cartDetails)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":     "cant find product id and cart id",
+			"message":     "Cant find product id and cart id",
 			"checkCartId": checkProductAndCartId,
 		})
 	}
@@ -130,9 +130,9 @@ func DeleteProductFromCartController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":         "delete product on table cart_details success",
 		"Deleted Product": deleteProduct,
 		"Total Quantity":  newTotalQty,
 		"Total Price":     newTotalPrice,
+		"status":          "Delete product on table cart_details success",
 	})
 }

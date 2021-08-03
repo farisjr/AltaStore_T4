@@ -38,7 +38,7 @@ func New(e *echo.Echo) {
 	e.PUT("/products/:id", controllers.UpdateProductController)
 
 	//----------------Authorized Only----------------------//
-	r := e.Group("/jwt")
+	r := e.Group("")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
 

@@ -26,7 +26,7 @@ func CreateCartController(c echo.Context) error {
 	checkPayment, err := database.CheckPayment(paymentId, payment)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find payment method",
+			"message":        "Cant find payment method",
 			"checkProductId": checkPayment,
 		})
 	}
@@ -46,7 +46,7 @@ func CreateCartController(c echo.Context) error {
 	productId, err := strconv.Atoi(c.Param("productId"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid id product",
+			"message": "Invalid id product",
 		})
 	}
 
@@ -55,7 +55,7 @@ func CreateCartController(c echo.Context) error {
 	checkProductId, err := database.CheckProductId(productId, product)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find product",
+			"message":        "Cant find product",
 			"checkProductId": checkProductId,
 		})
 	}
@@ -84,9 +84,9 @@ func CreateCartController(c echo.Context) error {
 	updatedCart, _ := database.GetCart(newCart.ID)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":      "create cart success",
 		"cart":        updatedCart,
 		"cartDetails": newCartDetail,
+		"status":      "Create cart success",
 	})
 }
 
@@ -104,7 +104,7 @@ func GetCartController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid id cart",
+			"message": "Invalid id cart",
 		})
 	}
 
@@ -113,7 +113,7 @@ func GetCartController(c echo.Context) error {
 	checkCartId, err := database.CheckCartId(id, cart)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find cart id",
+			"message":        "Cant find cart id",
 			"checkProductId": checkCartId,
 		})
 	}
@@ -123,9 +123,9 @@ func GetCartController(c echo.Context) error {
 	products, _ := database.GetListProductCart(id) //get all products based on cart id
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":  "success get all products by cart id",
 		"cart":     listCart,
 		"products": products,
+		"status":   "Success get all products by cart id",
 	})
 }
 
@@ -134,7 +134,7 @@ func DeleteCartController(c echo.Context) error {
 	cartId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid cart id",
+			"message": "Invalid cart id",
 		})
 	}
 
@@ -143,7 +143,7 @@ func DeleteCartController(c echo.Context) error {
 	checkCartId, err := database.CheckCartId(cartId, cart)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":     "cant find cart",
+			"message":     "Cant find cart",
 			"checkCartId": checkCartId,
 		})
 	}
@@ -152,7 +152,7 @@ func DeleteCartController(c echo.Context) error {
 	deletedCart, _ := database.DeleteCart(cartId)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":      "delete cart success",
+		"status":       "Delete cart success",
 		"Deleted Cart": deletedCart,
 	})
 }
