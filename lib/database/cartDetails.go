@@ -23,9 +23,9 @@ func GetCartDetailByCartId(cartId int) (models.CartDetails, error) {
 }
 
 //add product to cart
-func AddToCart(cartDetails models.CartDetails) (interface{}, error) {
+func AddToCart(cartDetails models.CartDetails) (models.CartDetails, error) {
 	if err := config.DB.Save(&cartDetails).Error; err != nil {
-		return nil, err
+		return cartDetails, err
 	}
 	return cartDetails, nil
 }
@@ -43,8 +43,17 @@ func DeleteProductFromCart(cartId, productId int) (interface{}, error) {
 func GetListProductCart(cartId int) (interface{}, error) {
 	var products []models.Products
 
-	if err := config.DB.Table("products").Preload("Products").Joins("JOIN cart_details ON products.id = cart_details.products_id").Joins("JOIN carts ON cart_details.carts_id = carts.id").Where("carts.id=?", cartId).Find(&products).Error; err != nil {
+	if err := config.DB.Table("products").Joins("JOIN cart_details ON products.id = cart_details.products_id").Joins("JOIN carts ON cart_details.carts_id = carts.id").Where("carts.id=?", cartId).Find(&products).Error; err != nil {
 		return products, nil
 	}
 	return products, nil
+}
+
+func CountProductOnCart(cartId int) (int, error) {
+	var cartDetail models.CartDetails
+	var countProduct int
+	if err := config.DB.Model(&cartDetail).Select("count(carts_id)").Where("carts_id=?", cartId).First(&countProduct).Error; err == nil {
+		return countProduct, err
+	}
+	return countProduct, nil
 }

@@ -3,42 +3,59 @@ package controllers
 import (
 	"net/http"
 	"project/lib/database"
+	"project/middlewares"
 	"project/models"
 	"strconv"
 
 	"github.com/labstack/echo"
 )
 
-<<<<<<< HEAD
-=======
 func CreateCartController(c echo.Context) error {
-	// ------------ cart -------------
-	// create new cart
-	cart := models.Carts{
+
+	// ------------ cart -------------//
+	//rec user input
+	cart := models.Carts{}
+	c.Bind(&cart) //input: payment method id
+
+	// get id user login
+	customerId := middlewares.ExtractTokenCustomerId(c)
+
+	//check product id on table product
+	paymentId := cart.PaymentMethodsID
+	var payment models.PaymentMethods
+	checkPayment, err := database.CheckPayment(paymentId, payment)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":        "Cant find payment method",
+			"checkProductId": checkPayment,
+		})
+	}
+
+	//set data cart and create new cart
+	cart = models.Carts{
 		StatusTransactions: "ordered",
 		TotalQuantity:      0,
 		TotalPrice:         0,
-		CustomersID:        1,
-		PaymentMethodsID:   1,
+		CustomersID:        customerId,
+		PaymentMethodsID:   paymentId,
 	}
-	c.Bind(&cart)
 	newCart, _ := database.CreateCart(cart)
 
-	//------------ cart detail -------------
-
+	//------------ cart detail -------------//
 	// convert product id
 	productId, err := strconv.Atoi(c.Param("productId"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid id product",
+			"message": "Invalid id product",
 		})
 	}
+
 	// check product id on table product
 	var product models.Products
 	checkProductId, err := database.CheckProductId(productId, product)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find product",
+			"message":        "Cant find product",
 			"checkProductId": checkProductId,
 		})
 	}
@@ -61,66 +78,118 @@ func CreateCartController(c echo.Context) error {
 	newCartDetail, _ := database.AddToCart(cartDetails)
 
 	//update total quantity and total price on table carts
-	getCart, _ := database.GetCart(newCart.ID)
-	newTotalPrice, _ := database.GetTotalPrice(cartDetails.CartsID)
-	newTotalQty, _ := database.GetTotalQty(cartDetails.CartsID)
-	updateTotalCart, err := database.UpdateTotalCart(getCart.ID, newTotalPrice, newTotalQty)
-	if err != nil {
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"status":      "update total quantity and total price success",
-			"cartDetails": updateTotalCart,
-		})
+	UpdateTotalCart(newCart.ID)
+
+	//get cart updated (total qty&total price)
+	updatedCart, _ := database.GetCart(newCart.ID)
+
+	//custom data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  updatedCart.ID,
+		"customers_id":        updatedCart.CustomersID,
+		"payment_methods_id":  updatedCart.PaymentMethodsID,
+		"status_transactions": updatedCart.StatusTransactions,
+		"total_quantity":      updatedCart.TotalQuantity,
+		"total_price":         updatedCart.TotalPrice,
+		"CreatedAt":           updatedCart.CreatedAt,
+		"UpdatedAt":           updatedCart.UpdatedAt,
+		"DeletedAt":           updatedCart.DeletedAt,
 	}
 
-	updatedCart, _ := database.GetCart(newCart.ID) //get cart updated (total qty&total price)
-
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":      "create cart success",
-		"cart":        updatedCart,
+		"cart":        outputCart,
 		"cartDetails": newCartDetail,
+		"status":      "Create cart success",
 	})
 }
 
->>>>>>> origin/feature_add_new_cart
+//func for update total quantity and total price on table carts
+func UpdateTotalCart(cartId int) (int, int) {
+	newTotalPrice, _ := database.GetTotalPrice(cartId)
+	newTotalQty, _ := database.GetTotalQty(cartId)
+	newCart, _ := database.UpdateTotalCart(cartId, newTotalPrice, newTotalQty)
+
+	return newCart.TotalQuantity, newCart.TotalPrice
+}
+
 func GetCartController(c echo.Context) error {
 	//convert cart_id
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid id cart",
+			"message": "Invalid id cart",
 		})
 	}
-
 	//is cart id exist
 	var cart models.Carts
 	checkCartId, err := database.CheckCartId(id, cart)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message":        "cant find cart id",
+			"message":        "Cant find cart id",
 			"checkProductId": checkCartId,
 		})
 	}
 
-<<<<<<< HEAD
-	//get cart by id
-	listCart, err := database.GetCartById(id)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	//get all products based on cart id
-	products, err := database.GetListProductCart(id)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-=======
-	listCart, _ := database.GetCartById(id) //get cart by id
-
+	listCart, _ := database.GetCartById(id)        //get cart by id
 	products, _ := database.GetListProductCart(id) //get all products based on cart id
->>>>>>> origin/feature_add_new_cart
+
+	//custom data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  listCart.ID,
+		"customers_id":        listCart.CustomersID,
+		"payment_methods_id":  listCart.PaymentMethodsID,
+		"status_transactions": listCart.StatusTransactions,
+		"total_quantity":      listCart.TotalQuantity,
+		"total_price":         listCart.TotalPrice,
+		"CreatedAt":           listCart.CreatedAt,
+		"UpdatedAt":           listCart.UpdatedAt,
+		"DeletedAt":           listCart.DeletedAt,
+	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":  "success get all products by cart id",
-		"cart":     listCart,
+		"cart":     outputCart,
 		"products": products,
+		"status":   "Success get all products by cart id",
+	})
+}
+
+func DeleteCartController(c echo.Context) error {
+	//convert cart id
+	cartId, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "Invalid cart id",
+		})
+	}
+
+	//check is cart id exist on table cart
+	var cart models.Carts
+	checkCartId, err := database.CheckCartId(cartId, cart)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":     "Cant find cart",
+			"checkCartId": checkCartId,
+		})
+	}
+
+	//delete cart and all products included on it
+	deletedCart, _ := database.DeleteCart(cartId)
+
+	//custom output data cart for body response
+	outputCart := map[string]interface{}{
+		"ID":                  deletedCart.ID,
+		"customers_id":        deletedCart.CustomersID,
+		"payment_methods_id":  deletedCart.PaymentMethodsID,
+		"status_transactions": deletedCart.StatusTransactions,
+		"total_quantity":      deletedCart.TotalQuantity,
+		"total_price":         deletedCart.TotalPrice,
+		"CreatedAt":           deletedCart.CreatedAt,
+		"UpdatedAt":           deletedCart.UpdatedAt,
+		"DeletedAt":           deletedCart.DeletedAt,
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":       "Delete cart success",
+		"Deleted Cart": outputCart,
 	})
 }

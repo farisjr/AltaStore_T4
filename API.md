@@ -3,213 +3,356 @@
 ## List
 | No | Web Service | Method | URL |
 |----|-------------|--------|-----|
-| 1 | [Register](#register) | POST | /api/customers |
-| 2 | [Login](#login) | POST | /api/login |
-| 3 | [Get Customer](#get-customer) | GET | /api/customers/:id |
-| 4 | [Get all products](#get-all-products) | GET | /api/products |
-| 5 | [Get all products by product category](#get-all-products-by-product-category) | GET | /api/products/productcategories/:name |
-| 6 | [Get product](#get-product) | GET | /api/products |
-| 7 | [Create new shopping cart](#create-new-shopping-cart) | POST | /api/cart/:productId/:qty |
-| 8 | [Add product to cart](#add-product-to-cart) | POST | api/carts/:cartId/details |
-| 9 | [Get all products on shopping cart](#get-all-products-on-shopping-cart) | GET | /api/carts/:id |
-| 10 | [Delete product from shopping cart](#delete-product-from-shopping-cart) | DELETE | /api/cartDetails/:products_id/:carts_id |
-| 11 | [Create transaction and payment](#create-transaction-and-payment) | POST | /api/transactions |
+| 1 | [Register](#register) | POST | /customers |
+| 2 | [Login](#login) | POST | /login |
+| 3 | [Get Customer](#get-customer) | GET | /customers/:id |
+| 4 | [Get all products](#get-all-products) | GET | /products |
+| 5 | [Get all products by product category](#get-all-products-by-product-category) | GET | /products/productcategories/:name |
+| 6 | [Get product](#get-product) | GET | /products |
+| 7 | [Create new shopping cart](#create-new-shopping-cart) | POST | /cart/:productId/:qty |
+| 8 | [Add product to cart](#add-product-to-cart) | POST | /carts/:cartId/details |
+| 9 | [Get all products on shopping cart](#get-all-products-on-shopping-cart) | GET | /carts/:id |
+| 10 | [Delete product from shopping cart](#delete-product-from-shopping-cart) | DELETE | /cartDetails/:products_id/:carts_id |
+| 11 | [Delete shopping cart](#delete-shopping-cart) | DELETE | /carts/:id |
+| 12 | [Create transaction and payment](#create-transaction-and-payment) | POST | /transactions |
 
-### Register
-URL : `/api/customers`
-Method : `POST`
+## Register
+### URL : `/customers`
+### Method : `POST`
 
-Response
+### Body Request
 ```json
 {
-
+	"name" : "dewi",
+	"gender" : "P",
+	"address" : "Jakarta",
+	"email" : "dewi@gmail.com",
+	"password" : 123
 }
 ```
 
-### Login
-URL : `/api/login`
-Method : `POST`
-
-Response
+### Body Response
 ```json
 {
-    
-}
-```
-
-### Get Customer
-URL : `/api/customers/:id`
-Method : `GET`
-
-Response
-```json
-{
-    
-}
-```
-
-### Get all products
-URL : `/api/products`
-Method : `GET`
-
-Response
-```json
-{
-    
-}
-```
-
-### Get all products by product category
-URL : `/api/products/productcategories/:name`
-Method : `GET`
-
-Response
-```json
-{
-    
-}
-```
-
-### Get product
-URL : `/api/products`
-Method : `GET`
-
-Response
-```json
-{
-    
-}
-```
-
-### Create new shopping cart
-URL : `/api/cart/:productId/:qty`
-Method : `POST`
-
-Response
-```json
-{
-    "cart": {
+    "message": "success create new user",
+    "user": {
         "ID": 0,
-        "CreatedAt": "2021-08-02T00:28:25.5+07:00",
-        "UpdatedAt": "2021-08-02T00:28:25.858+07:00",
+        "CreatedAt": "2021-08-03T12:57:09.167+07:00",
+        "UpdatedAt": "2021-08-03T12:57:09.167+07:00",
         "DeletedAt": null,
-        "id": 18,
-        "status_transactions": "ordered",
-        "total_quantity": 3,
-        "total_price": 120000,
-        "Products": null,
-        "CustomersID": 1,
-        "PaymentMethodsID": 1
-    },
-    "cartDetails": {
-        "products_id": 2,
-        "carts_id": 18,
-        "quantity": 3,
-        "price": 40000,
-        "CreatedAt": "2021-08-02T00:28:25.578+07:00",
-        "UpdatedAt": "2021-08-02T00:28:25.576+07:00"
-    },
-    "status": "create cart success"
+        "id": 3,
+        "name": "dewi",
+        "address": "Jakarta",
+        "gender": "P",
+        "email": "dewi@gmail.com",
+        "password": "",
+        "token": "",
+        "Carts": null
+    }
 }
 ```
 
-### Add product to cart
-URL : `api/carts/:cartId/details`
-Method : `POST`
+## Login
+### URL : `/login`
+### Method : `POST`
 
-Response
+### Body Request
 ```json
 {
-    "cartDetails": {
-        "products_id": 3,
-        "carts_id": 2,
-        "quantity": 2,
-        "price": 200000,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "2021-08-02T00:26:12.285+07:00"
-    },
-    "status": "add product to cart success"
+	"email" : "dewi@gmail.com",
+	"password" : "123"
 }
 ```
 
-### Get all products on shopping cart
-URL : `/api/carts/:id`
-Method : `GET`
-
-Response
+### Body Response
 ```json
 {
-    "cart": {
+    "status": "succes login",
+    "users": {
         "ID": 0,
-        "CreatedAt": "2021-07-31T12:09:32+07:00",
-        "UpdatedAt": "2021-07-31T22:41:36.274+07:00",
+        "CreatedAt": "2021-08-03T12:57:09.167+07:00",
+        "UpdatedAt": "2021-08-03T13:03:14.935+07:00",
         "DeletedAt": null,
-        "id": 1,
-        "status_transactions": "ordered",
-        "total_quantity": 3,
-        "total_price": 190000,
-        "Products": null,
-        "CustomersID": 1,
-        "PaymentMethodsID": 1
-    },
-    "message": "success get all products by cart id",
+        "id": 3,
+        "name": "Dewi",
+        "address": "Jakarta",
+        "gender": "P",
+        "email": "dewi@gmail.com",
+        "password": "123",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2Mjc5NzQ5ODcsInVzZXJJZCI6M30.6wbSybF31bNXu3BRlqgN1tWlKZbwS99f1p3atw5fpgw",
+        "Carts": null
+    }
+}
+```
+
+## Get Customer
+### URL : `/customers/:id`
+### Method : `GET`
+
+### Body Response
+```json
+{
+    
+}
+```
+
+## Get all products
+### URL : `/products`
+### Method : `GET`
+
+### Body Response
+```json
+{
+    "message": "success get all products",
     "products": [
         {
-            "ID": 0,
+            "ID": 1,
             "CreatedAt": "2021-07-31T12:06:53+07:00",
             "UpdatedAt": "2021-07-31T12:06:53+07:00",
             "DeletedAt": null,
-            "id": 1,
-            "name": "Baju A",
-            "code": "AAA",
+            "name": "Maybelline Fit Me 220",
+            "code": "MYBLLN_FTM_220",
             "status": "active",
             "price": 75000,
-            "description": "baju a",
+            "description": "Foundation Fit Me shade 220 from Maybelline",
             "Carts": null,
             "ProductCategoriesID": 1
         },
         {
-            "ID": 0,
+            "ID": 2,
             "CreatedAt": "2021-07-31T13:58:19+07:00",
             "UpdatedAt": "2021-07-31T13:58:19+07:00",
             "DeletedAt": null,
-            "id": 2,
-            "name": "Celana B",
-            "code": "BBBBBBBBS",
+            "name": "Tarte Shape Tape Contour Concealer Fair",
+            "code": "TRT_STCC_Fair",
             "status": "active",
             "price": 40000,
-            "description": "zzzzzzz",
+            "description": "Shape Tape Contour Concealer shade fair from Tarte",
             "Carts": null,
             "ProductCategoriesID": 2
+        },
+        {
+            "ID": 3,
+            "CreatedAt": "2021-08-01T14:30:10+07:00",
+            "UpdatedAt": "2021-08-01T14:30:10+07:00",
+            "DeletedAt": null,
+            "name": "Make Over Ultra Cover Liquid Matt Foundation",
+            "code": "MKVR_UCLM",
+            "status": "active",
+            "price": 200000,
+            "description": "Foundation Ultra Cover Liquid Matt from Make Over",
+            "Carts": null,
+            "ProductCategoriesID": 1
+        },
+        {
+            "ID": 4,
+            "CreatedAt": "2021-08-03T12:49:06+07:00",
+            "UpdatedAt": "2021-08-03T12:49:06+07:00",
+            "DeletedAt": null,
+            "name": "Maybelline SuperStay Matte Ink Lipstick",
+            "code": "MYBLLN_SMI",
+            "status": "active",
+            "price": 80000,
+            "description": "Lipstick SuperStay Matte Ink from Maybelline",
+            "Carts": null,
+            "ProductCategoriesID": 5
+        },
+        {
+            "ID": 5,
+            "CreatedAt": "2021-08-03T12:50:01+07:00",
+            "UpdatedAt": "2021-08-03T12:50:01+07:00",
+            "DeletedAt": null,
+            "name": "Loreal Lash Paradise",
+            "code": "LRL_LP",
+            "status": "active",
+            "price": 149000,
+            "description": "Mascara Lash Paradise from Loreal",
+            "Carts": null,
+            "ProductCategoriesID": 3
         }
     ]
 }
 ```
 
-### Delete product from shopping cart
-URL : `/api/cartDetails/:products_id/:carts_id`
-Method : `DELETE`
+## Get all products by product category
+### URL : `/products/productcategories/:name`
+### Method : `GET`
 
-Response
+### Body Response
 ```json
 {
-    "message": "delete product on table cart_details success",
-    "product": {
-        "products_id": 3,
-        "carts_id": 2,
-        "quantity": 2,
-        "price": 200000,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "2021-08-02T00:26:12.285+07:00"
-    }
+    
 }
 ```
 
-### Create transaction and payment
-URL : `/api/transactions`
+## Get product
+### URL : `/products`
+### Method : `GET`
+
+### Body Response
+```json
+{
+    
+}
+```
+
+## Create new shopping cart
+URL : `/cart/:productId/:qty`
 Method : `POST`
 
-Response
+### Body Request
+```json
+{
+	"payment_methods_id" : 2
+}
+```
+
+### Body Response
+```json
+{
+    "cart": {
+        "CreatedAt": "2021-08-03T23:34:03.685+07:00",
+        "DeletedAt": null,
+        "ID": 94,
+        "UpdatedAt": "2021-08-03T23:34:03.839+07:00",
+        "customers_id": 3,
+        "payment_methods_id": 2,
+        "status_transactions": "ordered",
+        "total_price": 298000,
+        "total_quantity": 2
+    },
+    "cartDetails": {
+        "products_id": 5,
+        "carts_id": 94,
+        "quantity": 2,
+        "price": 149000,
+        "CreatedAt": "2021-08-03T23:34:03.736+07:00",
+        "UpdatedAt": "2021-08-03T23:34:03.733+07:00"
+    },
+    "status": "Create cart success"
+}
+```
+
+## Add product to cart
+### URL : `/carts/:cartId/details`
+### Method : `POST`
+
+### Body Request
+```json
+{
+	"products_id" : 1,
+	"quantity": 1
+}
+```
+
+### Body Response
+```json
+{
+    "Total Price": 373000,
+    "Total Quantity": 3,
+    "cartDetails": {
+        "products_id": 1,
+        "carts_id": 94,
+        "quantity": 1,
+        "price": 75000,
+        "CreatedAt": "2021-08-03T23:35:15.102+07:00",
+        "UpdatedAt": "2021-08-03T23:35:15.1+07:00"
+    },
+    "status": "Add product to cart success"
+}
+```
+
+## Get all products on shopping cart
+### URL : `/carts/:id`
+### Method : `GET`
+
+### Body Response
+```json
+{
+    "cart": {
+        "CreatedAt": "2021-08-03T23:34:03.685+07:00",
+        "DeletedAt": null,
+        "ID": 94,
+        "UpdatedAt": "2021-08-03T23:34:03.839+07:00",
+        "customers_id": 3,
+        "payment_methods_id": 2,
+        "status_transactions": "ordered",
+        "total_price": 298000,
+        "total_quantity": 2
+    },
+    "products": [
+        {
+            "ID": 5,
+            "CreatedAt": "2021-08-03T12:50:01+07:00",
+            "UpdatedAt": "2021-08-03T12:50:01+07:00",
+            "DeletedAt": null,
+            "name": "Loreal Lash Paradise",
+            "code": "LRL_LP",
+            "status": "active",
+            "price": 149000,
+            "description": "Mascara Lash Paradise from Loreal",
+            "ProductCategoriesID": 3
+        }
+    ],
+    "status": "Success get all products by cart id"
+}
+```
+
+## Delete product from shopping cart
+### URL : `/cartDetails/:products_id/:carts_id`
+### Method : `DELETE`
+
+### Body Response
+```json
+{
+    "Deleted Product": {
+        "products_id": 1,
+        "carts_id": 94,
+        "quantity": 1,
+        "price": 75000,
+        "CreatedAt": "0001-01-01T00:00:00Z",
+        "UpdatedAt": "2021-08-03T23:37:33.589+07:00"
+    },
+    "Total Price": 298000,
+    "Total Quantity": 2,
+    "status": "Delete product on table cart_details success"
+}
+```
+
+## Delete shopping cart
+### URL : `/cartDetails/:products_id/:carts_id`
+### Method : `DELETE`
+
+### Body Response
+```json
+{
+    "Deleted Cart": {
+        "CreatedAt": "2021-08-03T23:34:03.685+07:00",
+        "DeletedAt": null,
+        "ID": 94,
+        "UpdatedAt": "2021-08-03T23:37:49.829+07:00",
+        "customers_id": 3,
+        "payment_methods_id": 2,
+        "status_transactions": "ordered",
+        "total_price": 298000,
+        "total_quantity": 2
+    },
+    "status": "Delete cart success"
+}
+```
+
+## Create transaction and payment
+### URL : `/transactions`
+### Method : `POST`
+
+### Body Request
+```json
+{
+
+}
+```
+
+### Body Response
 ```json
 {
     

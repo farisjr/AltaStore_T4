@@ -6,11 +6,7 @@ import (
 )
 
 // add new cart
-<<<<<<< HEAD
-func CreateCart(cart models.Carts) (interface{}, error) {
-=======
 func CreateCart(cart models.Carts) (models.Carts, error) {
->>>>>>> origin/feature_add_new_cart
 	if err := config.DB.Save(&cart).Error; err != nil {
 		return cart, err
 	}
@@ -26,18 +22,6 @@ func GetCart(cartId int) (models.Carts, error) {
 	return cart, nil
 }
 
-<<<<<<< HEAD
-// get cart by id
-func GetCart(cartId int) (models.Carts, error) {
-	var cart models.Carts
-	if err := config.DB.Find(&cart, "id=?", cartId).Error; err != nil {
-		return cart, err
-	}
-	return cart, nil
-}
-
-=======
->>>>>>> origin/feature_add_new_cart
 // get total price
 func GetTotalPrice(cartId int) (int, error) {
 	var cartDetails models.CartDetails
@@ -59,10 +43,10 @@ func GetTotalQty(cartId int) (int, error) {
 }
 
 //update total cart
-func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{}, error) {
+func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (models.Carts, error) {
 	var cart models.Carts
 	if err := config.DB.Model(&cart).Where("id=?", cartId).Updates(models.Carts{TotalPrice: newTotalPrice, TotalQuantity: newTotalQty}).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
@@ -76,10 +60,19 @@ func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
 }
 
 // get cart by id
-func GetCartById(id int) (interface{}, error) {
+func GetCartById(id int) (models.Carts, error) {
 	var cart models.Carts
 	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
-		return nil, err
+		return cart, err
+	}
+	return cart, nil
+}
+
+//delete cart
+func DeleteCart(cartId int) (models.Carts, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", cartId).Unscoped().Delete(&cart).Error; err != nil {
+		return cart, err
 	}
 	return cart, nil
 }
