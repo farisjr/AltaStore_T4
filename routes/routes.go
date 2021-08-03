@@ -9,6 +9,9 @@ import (
 )
 
 func New(e *echo.Echo) {
+
+	e.PUT("/api/transactions/:id", controllers.UpdateTransactionStatusController)
+
 	e.GET("/paymentMethods", controllers.GetAllPaymentMethodsController)
 	e.GET("/paymentMethods/:id", controllers.GetOnePaymentMethodsController)
 	e.POST("/paymentMethods", controllers.CreatePaymentMethodsController)
@@ -26,7 +29,7 @@ func New(e *echo.Echo) {
 	e.GET("/products/:id", controllers.GetProductidController)
 	e.DELETE("/products/:id", controllers.DeleteProductByIdController)
 	e.PUT("/products/:id", controllers.UpdateProductController)
-	
+
 	//carts
 	e.POST("/api/cart/:productId/:qty", controllers.CreateCartController)                            // create new shopping cart
 	e.POST("api/carts/:cartId/details", controllers.AddToCartController)                             //add product to cart
