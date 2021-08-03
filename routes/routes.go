@@ -38,14 +38,8 @@ func New(e *echo.Echo) {
 	e.DELETE("/products/:id", controllers.DeleteProductByIdController)
 	e.PUT("/products/:id", controllers.UpdateProductController)
 
-	//carts
-	e.POST("/api/cart/:productId/:qty", controllers.CreateCartController)                            // create new shopping cart
-	e.POST("api/carts/:cartId/details", controllers.AddToCartController)                             //add product to cart
-	e.GET("/api/carts/:id", controllers.GetCartController)                                           //get all product on a cart
-	e.DELETE("/api/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //add product to existing shopping cart
-
 	//----------------Authorized Only----------------------//
-	r := e.Group("/jwt")
+	r := e.Group("")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 	r.GET("/customers/:id", controllers.GetCustomersidController)
 
@@ -53,6 +47,7 @@ func New(e *echo.Echo) {
 	r.POST("/carts/:productId/:qty", controllers.CreateCartController)                           // create new shopping cart
 	r.POST("/carts/:cartId/details", controllers.AddToCartController)                            //add product to cart
 	r.GET("/carts/:id", controllers.GetCartController)                                           //get all product on a cart
+	r.DELETE("/carts/:id", controllers.DeleteCartController)                                     //delete cart and all products included on it
 	r.DELETE("/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //delete product from cart
 
 	r.GET("/products/productcategories/:name", controllers.GetProductByProductCategoryController)

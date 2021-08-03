@@ -43,10 +43,10 @@ func GetTotalQty(cartId int) (int, error) {
 }
 
 //update total cart
-func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (interface{}, error) {
+func UpdateTotalCart(cartId int, newTotalPrice int, newTotalQty int) (models.Carts, error) {
 	var cart models.Carts
 	if err := config.DB.Model(&cart).Where("id=?", cartId).Updates(models.Carts{TotalPrice: newTotalPrice, TotalQuantity: newTotalQty}).Error; err != nil {
-		return nil, err
+		return cart, err
 	}
 	return cart, nil
 }
@@ -63,6 +63,15 @@ func CheckCartId(cartId int, cart models.Carts) (interface{}, error) {
 func GetCartById(id int) (interface{}, error) {
 	var cart models.Carts
 	if err := config.DB.Find(&cart, "id=?", id).Error; err != nil {
+		return nil, err
+	}
+	return cart, nil
+}
+
+//delete cart
+func DeleteCart(cartId int) (interface{}, error) {
+	var cart models.Carts
+	if err := config.DB.Find(&cart, "id=?", cartId).Unscoped().Delete(&cart).Error; err != nil {
 		return nil, err
 	}
 	return cart, nil

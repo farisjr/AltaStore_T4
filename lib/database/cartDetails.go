@@ -48,3 +48,12 @@ func GetListProductCart(cartId int) (interface{}, error) {
 	}
 	return products, nil
 }
+
+func CountProductOnCart(cartId int) (int, error) {
+	var cartDetail models.CartDetails
+	var countProduct int
+	if err := config.DB.Model(&cartDetail).Select("count(carts_id)").Where("carts_id=?", cartId).First(&countProduct).Error; err == nil {
+		return countProduct, err
+	}
+	return countProduct, nil
+}
