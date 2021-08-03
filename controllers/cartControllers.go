@@ -148,7 +148,7 @@ func DeleteCartController(c echo.Context) error {
 		})
 	}
 
-	//delete cart and products included on it
+	//delete cart and all products included on it
 	deletedCart, _ := database.DeleteCart(cartId)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{

@@ -46,7 +46,7 @@ func New(e *echo.Echo) {
 	r.POST("/carts/:productId/:qty", controllers.CreateCartController)                           // create new shopping cart
 	r.POST("/carts/:cartId/details", controllers.AddToCartController)                            //add product to cart
 	r.GET("/carts/:id", controllers.GetCartController)                                           //get all product on a cart
-	r.DELETE("/carts/:id", controllers.DeleteCartController)                                     //delete cart and all products included
+	r.DELETE("/carts/:id", controllers.DeleteCartController)                                     //delete cart and all products included on it
 	r.DELETE("/cartDetails/:carts_id/:products_id", controllers.DeleteProductFromCartController) //delete product from cart
 
 	r.GET("/products/productcategories/:name", controllers.GetProductByProductCategoryController)
