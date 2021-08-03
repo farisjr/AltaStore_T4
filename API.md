@@ -22,7 +22,20 @@ Method : `POST`
 Response
 ```json
 {
-
+    "message": "success create new user",
+    "user": {
+        "ID": 1,
+        "CreatedAt": "2021-08-03T20:41:27.538+07:00",
+        "UpdatedAt": "2021-08-03T20:41:27.538+07:00",
+        "DeletedAt": null,
+        "name": "pikachu",
+        "address": "bogor",
+        "gender": "M",
+        "email": "pikachu@gmail.com",
+        "password": "2222",
+        "token": "",
+        "Carts": null
+    }
 }
 ```
 
@@ -33,7 +46,20 @@ Method : `POST`
 Response
 ```json
 {
-    
+    "status": "succes login",
+    "users": {
+        "ID": 1,
+        "CreatedAt": "2021-07-31T16:01:34.253+07:00",
+        "UpdatedAt": "2021-08-02T21:40:18.26+07:00",
+        "DeletedAt": null,
+        "name": "pikachu",
+        "address": "bogor",
+        "gender": "M",
+        "email": "pikachu@gmail.com",
+        "password": "2222",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MjgwMTAzMDUsInVzZXJJZCI6MX0.u6d7zO1VF8eEtx7RmAgeDDSM6Nx5zxTyc20Un2WrObk",
+        "Carts": null
+    }  
 }
 ```
 
@@ -44,7 +70,22 @@ Method : `GET`
 Response
 ```json
 {
-    
+{
+    "message": "success get all users",
+    "users": {
+        "ID": 1,
+        "CreatedAt": "2021-07-31T16:01:34.253+07:00",
+        "UpdatedAt": "2021-08-03T23:05:05.169+07:00",
+        "DeletedAt": null,
+        "name": "pikachu",
+        "address": "bogor",
+        "gender": "M",
+        "email": "pikachu@gmail.com",
+        "password": "2222",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MjgwMTAzMDUsInVzZXJJZCI6MX0.u6d7zO1VF8eEtx7RmAgeDDSM6Nx5zxTyc20Un2WrObk",
+        "Carts": null
+    }
+}    
 }
 ```
 
@@ -55,7 +96,93 @@ Method : `GET`
 Response
 ```json
 {
-    
+    "message": "success get all products",
+    "products": [
+        {
+            "ID": 1,
+            "CreatedAt": "2021-07-31T13:33:25.558+07:00",
+            "UpdatedAt": "2021-07-31T13:33:25.558+07:00",
+            "DeletedAt": null,
+            "name": "iphone 12",
+            "code": "e01",
+            "status": "available",
+            "price": 20000000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 13,
+            "CreatedAt": "2021-07-31T14:32:10.067+07:00",
+            "UpdatedAt": "2021-07-31T14:32:10.067+07:00",
+            "DeletedAt": null,
+            "name": "asus max pro",
+            "code": "e02",
+            "status": "available",
+            "price": 4000000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 14,
+            "CreatedAt": "2021-07-31T14:36:39.687+07:00",
+            "UpdatedAt": "2021-07-31T14:36:39.687+07:00",
+            "DeletedAt": null,
+            "name": "laptop asus",
+            "code": "e03",
+            "status": "available",
+            "price": 3000000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 15,
+            "CreatedAt": "2021-07-31T14:37:55.48+07:00",
+            "UpdatedAt": "2021-08-01T21:10:48.075+07:00",
+            "DeletedAt": null,
+            "name": "mie ayam",
+            "code": "m01",
+            "status": "available",
+            "price": 20000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 16,
+            "CreatedAt": "2021-07-31T14:38:31.671+07:00",
+            "UpdatedAt": "2021-07-31T14:38:31.671+07:00",
+            "DeletedAt": null,
+            "name": "bakso",
+            "code": "m02",
+            "status": "available",
+            "price": 30000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 17,
+            "CreatedAt": "2021-07-31T14:39:07.993+07:00",
+            "UpdatedAt": "2021-07-31T14:39:07.993+07:00",
+            "DeletedAt": null,
+            "name": "kemeja",
+            "code": "p01",
+            "status": "available",
+            "price": 100000,
+            "description": "",
+            "ProductCategoriesID": 0
+        },
+        {
+            "ID": 18,
+            "CreatedAt": "2021-07-31T14:39:40.061+07:00",
+            "UpdatedAt": "2021-08-01T21:54:48.745+07:00",
+            "DeletedAt": null,
+            "name": "gamis",
+            "code": "p02",
+            "status": "available",
+            "price": 120000,
+            "description": "",
+            "ProductCategoriesID": 0
+        }
+    ]
 }
 ```
 
@@ -66,18 +193,56 @@ Method : `GET`
 Response
 ```json
 {
-    
+    "message": "success get all product by product category",
+    "product by category": [
+        {
+            "ID": 17,
+            "CreatedAt": "2021-07-31T14:39:07.993+07:00",
+            "UpdatedAt": "2021-07-31T14:39:07.993+07:00",
+            "DeletedAt": null,
+            "name": "kemeja",
+            "code": "p01",
+            "status": "available",
+            "price": 100000,
+            "description": "kemeja biru",
+            "ProductCategoriesID": 2
+        },
+        {
+            "ID": 18,
+            "CreatedAt": "2021-07-31T14:39:40.061+07:00",
+            "UpdatedAt": "2021-08-01T21:54:48.745+07:00",
+            "DeletedAt": null,
+            "name": "gamis",
+            "code": "p02",
+            "status": "available",
+            "price": 120000,
+            "description": "gamis putih",
+            "ProductCategoriesID": 2
+        }
+    ]
 }
 ```
 
 ### Get product
-URL : `/api/products`
+URL : `/api/products/:id`
 Method : `GET`
 
 Response
 ```json
 {
-    
+    "message": "success get product by id",
+    "products": {
+        "ID": 18,
+        "CreatedAt": "2021-07-31T14:39:40.061+07:00",
+        "UpdatedAt": "2021-08-01T21:54:48.745+07:00",
+        "DeletedAt": null,
+        "name": "gamis",
+        "code": "p02",
+        "status": "available",
+        "price": 120000,
+        "description": "",
+        "ProductCategoriesID": 0
+    }
 }
 ```
 
