@@ -5,7 +5,15 @@ import (
 	"project/models"
 )
 
-// all payment methods table
+//check is payment exist on table payment methods
+func CheckPayment(paymentId int, payment models.PaymentMethods) (interface{}, error) {
+	if err := config.DB.Where("id=?", paymentId).First(&payment).Error; err != nil {
+		return nil, err
+	}
+	return payment.ID, nil
+}
+
+//function get all payment methods table
 func GetPaymentMethods() (interface{}, error) {
 	var paymentMethods []models.PaymentMethods
 	if err := config.DB.Find(&paymentMethods).Error; err != nil {

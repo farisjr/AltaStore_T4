@@ -19,10 +19,11 @@ func CreateToken(userId int) (string, error) {
 }
 
 func ExtractTokenCustomerId(e echo.Context) int {
-	customer := e.Get("customer").(*jwt.Token)
+	customer := e.Get("user").(*jwt.Token)
+
 	if customer.Valid {
 		claims := customer.Claims.(jwt.MapClaims)
-		customerId := claims["customerId"].(int)
+		customerId := int(claims["userId"].(float64))
 		return customerId
 	}
 	return 0

@@ -12,7 +12,7 @@ type Products struct {
 	Description string `json:"description" form:"description"`
 
 	//many to many with carts
-	// Carts []*Carts `gorm:"many2many:cart_details"`
+	Carts []*Carts `gorm:"many2many:cart_details"`
 
 	//1 to many with product category
 	ProductCategoriesID int

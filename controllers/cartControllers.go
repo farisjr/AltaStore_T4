@@ -1,26 +1,56 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"project/lib/database"
+	"project/middlewares"
 	"project/models"
 	"strconv"
 
 	"github.com/labstack/echo"
 )
 
+// func Authorization(c echo.Context) (bool, models.Customers) {
+// 	customerId := middlewares.ExtractTokenCustomerId(c)
+// 	customers := database.GetUpdateCustomers(customerId)
+// 	token := database.GetToken(customerId)
+
+// 	if customers.Token != token {
+// 		return false, customers
+// 	}
+// 	return true, customers
+// }
+
 func CreateCartController(c echo.Context) error {
 	// ------------ cart -------------
-	// create new cart
-	cart := models.Carts{
+	//rec use
+	cart := models.Carts{}
+	c.Bind(&cart) //input: payment method id
+
+	customerId := middlewares.ExtractTokenCustomerId(c)
+
+	//check product id on table product
+	paymentId := cart.PaymentMethodsID
+	var payment models.PaymentMethods
+	checkPayment, err := database.CheckPayment(paymentId, payment)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message":        "cant find payment",
+			"checkProductId": checkPayment,
+		})
+	}
+
+	//set data
+	cart = models.Carts{
 		StatusTransactions: "ordered",
 		TotalQuantity:      0,
 		TotalPrice:         0,
-		CustomersID:        1,
-		PaymentMethodsID:   1,
+		CustomersID:        customerId,
+		PaymentMethodsID:   paymentId,
 	}
-	c.Bind(&cart)
 	newCart, _ := database.CreateCart(cart)
+	fmt.Println("newCart ", newCart)
 
 	//------------ cart detail -------------
 
