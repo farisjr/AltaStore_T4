@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type Sellers struct {
 	gorm.Model
+	ID       int    `gorm:"primaryKey" json:"id" form:"id"`
 	Name     string `json:"name" form:"name"`
 	Address  string `json:"address" form:"address"`
 	Gender   string `json:"gender" form:"gender"`
