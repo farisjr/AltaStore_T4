@@ -51,21 +51,6 @@
 {
     "message": "success create new user",
     "user": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "ID": 0,
-=======
->>>>>>> 2958cf9b541a1a4b111722eae10aa7ea148a81fc
-        "CreatedAt": "2021-08-03T12:57:09.167+07:00",
-        "UpdatedAt": "2021-08-03T12:57:09.167+07:00",
-        "DeletedAt": null,
-        "id": 3,
-        "name": "dewi",
-        "address": "Jakarta",
-        "gender": "P",
-        "email": "dewi@gmail.com",
-        "password": "",
-=======
         "ID": 5,
         "CreatedAt": "2021-08-04T00:33:33.589+07:00",
         "UpdatedAt": "2021-08-04T00:33:33.589+07:00",
@@ -75,7 +60,6 @@
         "gender": "P",
         "email": "nia@gmail.com",
         "password": "123",
->>>>>>> origin/fixing_cart_v2
         "token": "",
         "Carts": null
     }
@@ -91,7 +75,6 @@
 {
 	"email" : "dewi@gmail.com",
 	"password" : "123"
-<<<<<<< HEAD
 }
 ```
 
@@ -119,30 +102,8 @@
 ### URL : `/customers/:id`
 ### Method : `GET`
 
-=======
-}
-```
-
 ### Body Response
 ```json
-<<<<<<< HEAD
-{
-    "status": "succes login",
-    "users": {
-        "ID": 3,
-        "CreatedAt": "2021-08-03T12:57:09.167+07:00",
-        "UpdatedAt": "2021-08-03T22:58:20.691+07:00",
-        "DeletedAt": null,
-        "name": "Dewi",
-        "address": "Jakarta",
-        "gender": "P",
-        "email": "dewi@gmail.com",
-        "password": "123",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MjgwMTU2NTcsInVzZXJJZCI6M30.F-KyjJniT0-VsFcooGmaX9y6VP0PZZ90GEzUioVfsWQ",
-        "Carts": null
-    }
-}
-=======
 {   
     "message": "success get user",
     "users": {
@@ -159,40 +120,8 @@
         "Carts": null
     }
 } 
-
->>>>>>> 2958cf9b541a1a4b111722eae10aa7ea148a81fc
 ```
 
-## Get Customer
-### URL : `/customers/:id`
-### Method : `GET`
-
->>>>>>> origin/fixing_cart_v2
-### Body Response
-```json
-{
-    "message": "success get all users",
-    "users": {
-        "ID": 5,
-        "CreatedAt": "2021-08-04T00:33:33.589+07:00",
-        "UpdatedAt": "2021-08-04T00:33:33.589+07:00",
-        "DeletedAt": null,
-        "name": "nia",
-        "address": "Jakarta",
-        "gender": "P",
-        "email": "nia@gmail.com",
-        "password": "123",
-        "token": "",
-        "Carts": null
-    }
-}
-```
-
-<<<<<<< HEAD
-## Get all products
-### URL : `/products`
-### Method : `GET`
-=======
 ## Edit customer
 ### URL : `/customers/:id`
 ### Method : `PUT`
@@ -207,87 +136,10 @@
 	"password" : "123"
 }
 ```
->>>>>>> origin/fixing_cart_v2
 
 ### Body Response
 ```json
 {
-<<<<<<< HEAD
-    "message": "success get all products",
-    "products": [
-        {
-            "ID": 1,
-            "CreatedAt": "2021-07-31T12:06:53+07:00",
-            "UpdatedAt": "2021-07-31T12:06:53+07:00",
-            "DeletedAt": null,
-            "name": "Maybelline Fit Me 220",
-            "code": "MYBLLN_FTM_220",
-            "status": "active",
-            "price": 75000,
-            "description": "Foundation Fit Me shade 220 from Maybelline",
-            "Carts": null,
-            "ProductCategoriesID": 1
-        },
-        {
-            "ID": 2,
-            "CreatedAt": "2021-07-31T13:58:19+07:00",
-            "UpdatedAt": "2021-07-31T13:58:19+07:00",
-            "DeletedAt": null,
-            "name": "Tarte Shape Tape Contour Concealer Fair",
-            "code": "TRT_STCC_Fair",
-            "status": "active",
-            "price": 40000,
-            "description": "Shape Tape Contour Concealer shade fair from Tarte",
-            "Carts": null,
-            "ProductCategoriesID": 2
-        },
-        {
-            "ID": 3,
-            "CreatedAt": "2021-08-01T14:30:10+07:00",
-            "UpdatedAt": "2021-08-01T14:30:10+07:00",
-            "DeletedAt": null,
-            "name": "Make Over Ultra Cover Liquid Matt Foundation",
-            "code": "MKVR_UCLM",
-            "status": "active",
-            "price": 200000,
-            "description": "Foundation Ultra Cover Liquid Matt from Make Over",
-            "Carts": null,
-            "ProductCategoriesID": 1
-        },
-        {
-            "ID": 4,
-            "CreatedAt": "2021-08-03T12:49:06+07:00",
-            "UpdatedAt": "2021-08-03T12:49:06+07:00",
-            "DeletedAt": null,
-            "name": "Maybelline SuperStay Matte Ink Lipstick",
-            "code": "MYBLLN_SMI",
-            "status": "active",
-            "price": 80000,
-            "description": "Lipstick SuperStay Matte Ink from Maybelline",
-            "Carts": null,
-            "ProductCategoriesID": 5
-        },
-        {
-            "ID": 5,
-            "CreatedAt": "2021-08-03T12:50:01+07:00",
-            "UpdatedAt": "2021-08-03T12:50:01+07:00",
-            "DeletedAt": null,
-            "name": "Loreal Lash Paradise",
-            "code": "LRL_LP",
-            "status": "active",
-            "price": 149000,
-            "description": "Mascara Lash Paradise from Loreal",
-            "Carts": null,
-            "ProductCategoriesID": 3
-        }
-    ]
-}
-```
-
-## Get all products by product category
-### URL : `/products/productcategories/:name`
-### Method : `GET`
-=======
     "message": "success update customer",
     "update customer": {
         "ID": 5,
@@ -308,40 +160,10 @@
 ## Delete Customer
 ### URL : `/customers/:id`
 ### Method : `DELETE`
->>>>>>> origin/fixing_cart_v2
 
 ### Body Response
 ```json
 {
-<<<<<<< HEAD
-    "message": "success delete customer selected",
-    "customer after delete": {
-        "ID": 0,
-        "CreatedAt": "0001-01-01T00:00:00Z",
-        "UpdatedAt": "0001-01-01T00:00:00Z",
-        "DeletedAt": "2021-08-04T00:41:52.333+07:00",
-        "name": "",
-        "address": "",
-        "gender": "",
-        "email": "",
-        "password": "",
-        "token": "",
-        "Carts": null
-    },
-    "customer before delete": {
-        "ID": 5,
-        "CreatedAt": "2021-08-04T00:33:33.589+07:00",
-        "UpdatedAt": "2021-08-04T00:40:46.572+07:00",
-        "DeletedAt": null,
-        "name": "Ka",
-        "address": "Bogor",
-        "gender": "P",
-        "email": "nia@gmail.com",
-        "password": "123",
-        "token": "",
-        "Carts": null
-    }
-=======
     "message": "success get all product by product category",
     "products": [
         {
@@ -371,28 +193,16 @@
             "ProductCategoriesID": 1
         }
     ]
->>>>>>> 2958cf9b541a1a4b111722eae10aa7ea148a81fc
 }
 ```
 
-<<<<<<< HEAD
-## Get product
-### URL : `/products/:id`
-### Method : `GET`
-
-### Body Response
-=======
 ## Create category
 ### URL : `/productcategories`
 ### Method : `POST`
 
 ### Body Request
->>>>>>> origin/fixing_cart_v2
 ```json
 {
-<<<<<<< HEAD
-	"name" : "Powder"
-=======
     "message": "success get product by id",
     "products": {
             "ID": 1,
@@ -407,112 +217,9 @@
             "Carts": null,
             "ProductCategoriesID": 1
     }    
->>>>>>> 2958cf9b541a1a4b111722eae10aa7ea148a81fc
 }
 ```
 
-<<<<<<< HEAD
-## Create new shopping cart
-URL : `/cart/:productId/:qty`
-Method : `POST`
-
-### Body Request
-```json
-{
-	"payment_methods_id" : 2
-}
-```
-
-### Body Response
-```json
-{
-    "cart": {
-        "ID": 0,
-        "CreatedAt": "2021-08-03T13:10:35.03+07:00",
-        "UpdatedAt": "2021-08-03T13:10:35.309+07:00",
-        "DeletedAt": null,
-        "id": 66,
-        "status_transactions": "ordered",
-        "total_quantity": 2,
-        "total_price": 298000,
-        "products": null,
-        "customers_id": 3,
-        "payment_methods_id": 2
-    },
-    "cartDetails": {
-        "products_id": 5,
-        "carts_id": 66,
-        "quantity": 2,
-        "price": 149000,
-        "CreatedAt": "2021-08-03T13:10:35.132+07:00",
-        "UpdatedAt": "2021-08-03T13:10:35.13+07:00"
-    },
-    "status": "Create cart success"
-}
-```
-
-## Add product to cart
-### URL : `/carts/:cartId/details`
-### Method : `POST`
-
-### Body Request
-```json
-{
-	"products_id" : 1,
-	"quantity": 1
-}
-```
-
-### Body Response
-```json
-{
-    "Total Price": 373000,
-    "Total Quantity": 3,
-    "cartDetails": {
-        "products_id": 1,
-        "carts_id": 66,
-        "quantity": 1,
-        "price": 75000,
-        "CreatedAt": "2021-08-03T13:19:43.187+07:00",
-        "UpdatedAt": "2021-08-03T13:19:43.183+07:00"
-    },
-    "status": "Add product to cart success"
-}
-```
-
-## Get all products on shopping cart
-### URL : `/carts/:id`
-### Method : `GET`
-
-### Body Response
-```json
-{
-    "cart": {
-        "ID": 0,
-        "CreatedAt": "2021-08-03T13:10:35.03+07:00",
-        "UpdatedAt": "2021-08-03T13:10:35.309+07:00",
-        "DeletedAt": null,
-        "id": 66,
-        "status_transactions": "ordered",
-        "total_quantity": 2,
-        "total_price": 298000,
-        "products": null,
-        "customers_id": 3,
-        "payment_methods_id": 2
-    },
-    "products": [
-        {
-            "ID": 5,
-            "CreatedAt": "2021-08-03T12:50:01+07:00",
-            "UpdatedAt": "2021-08-03T12:50:01+07:00",
-            "DeletedAt": null,
-            "name": "Loreal Lash Paradise",
-            "code": "LRL_LP",
-            "status": "active",
-            "price": 149000,
-            "description": "Mascara Lash Paradise from Loreal",
-            "Carts": null,
-=======
 ### Body Response
 ```json
 {
@@ -782,7 +489,6 @@ Method : `POST`
             "price": 149000,
             "description": "Mascara Lash Paradise from Loreal",
             "Carts": null,
->>>>>>> origin/fixing_cart_v2
             "ProductCategoriesID": 3
         }
     ],
@@ -790,70 +496,13 @@ Method : `POST`
 }
 ```
 
-<<<<<<< HEAD
-## Delete product from shopping cart
-### URL : `/cartDetails/:products_id/:carts_id`
-### Method : `DELETE`
-=======
 ## Get product
 ### URL : `/products/:id`
 ### Method : `GET`
->>>>>>> origin/fixing_cart_v2
 
 ### Body Response
 ```json
 {
-<<<<<<< HEAD
-    "Deleted Product": {
-        "products_id": 5,
-        "carts_id": 66,
-        "quantity": 2,
-        "price": 149000,
-        "CreatedAt": "2021-08-03T13:10:35.132+07:00",
-        "UpdatedAt": "2021-08-03T13:10:35.13+07:00"
-    },
-    "Total Price": 75000,
-    "Total Quantity": 1,
-    "status": "Delete product on table cart_details success"
-}
-```
-
-## Delete shopping cart
-### URL : `/cartDetails/:products_id/:carts_id`
-### Method : `DELETE`
-
-### Body Response
-```json
-{
-    "Deleted Cart": {
-        "ID": 0,
-        "CreatedAt": "2021-08-03T13:10:35.03+07:00",
-        "UpdatedAt": "2021-08-03T13:23:39.206+07:00",
-        "DeletedAt": null,
-        "id": 66,
-        "status_transactions": "ordered",
-        "total_quantity": 1,
-        "total_price": 75000,
-        "products": null,
-        "customers_id": 3,
-        "payment_methods_id": 2
-    },
-    "status": "Delete cart success"
-}
-```
-
-## Create transaction and payment
-### URL : `/transactions`
-### Method : `POST`
-
-### Body Request
-```json
-{
-
-}
-```
-
-=======
     "message": "success get product by id",
     "products": {
         "ID": 2,
@@ -1211,7 +860,6 @@ Method : `POST`
 }
 ```
 
->>>>>>> origin/fixing_cart_v2
 ### Body Response
 ```json
 {
