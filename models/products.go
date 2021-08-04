@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Products struct {
 	gorm.Model
-	// ID          int    `json:"id" form:"id"`
+	ID          int    `gorm:"primaryKey" json:"id" form:"id"`
 	Name        string `json:"name" form:"name"`
 	Code        string `json:"code" form:"code"`
 	Status      string `json:"status" form:"status"`

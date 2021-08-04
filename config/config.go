@@ -13,6 +13,7 @@ var DB *gorm.DB
 var HTTP_PORT int
 
 func InitDb() {
+	//connectionString := "root:welcome12345@tcp(localhost:3306)/alta_test?charset=utf8&parseTime=True&loc=Local"
 	connectionString := os.Getenv("CONNECTION_STRING")
 	var err error
 	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
